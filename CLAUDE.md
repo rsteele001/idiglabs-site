@@ -5,8 +5,8 @@ Context for Claude Code working in this repo.
 ## What this is
 
 The iDigLabs storefront. Static HTML, no build step, no framework, no
-dependencies. Deployed to Netlify from the `main` branch of GitHub.
-Pushing to `main` deploys. There is nothing to compile.
+dependencies. Deployed to Netlify via the Netlify CLI (`netlify deploy
+--prod`) — see Deploying below. There is nothing to compile.
 
 ## Architecture
 
@@ -119,14 +119,18 @@ inline SVG drawn in `site.js` or in the page.
 
 ## Deploying
 
+`git push` does **not** deploy — the GitHub account is flagged and Netlify
+is not linked to the repo. Deploys happen via the Netlify CLI only:
+
 ```bash
 git add .
 git commit -m "what changed"
 git push
+netlify deploy --prod
 ```
 
-Netlify rebuilds in ~15 seconds. For anything risky, push a branch instead
-and use the Netlify deploy preview URL before merging.
+Still commit and push for history, but the site only goes live once
+`netlify deploy --prod` runs.
 
 ## Known open items
 
@@ -138,16 +142,7 @@ and use the Netlify deploy preview URL before merging.
   School rack. Not visible while `plugins.html` is staged, but it must be
   resolved before that page launches.
 - Discovery Series price ($99) is provisional.
-
-## Deploying right now
-
-The GitHub account is flagged and cannot authorise third-party OAuth, so
-Netlify is NOT watching the repo. `git push` does not deploy. Publish with:
-
-```bash
-netlify deploy --prod
-```
-
-Keep committing and pushing to git regardless — the history matters. Once
-GitHub lifts the flag, link the repo in Netlify (Site settings → Build &
-deploy) and `git push` alone will deploy.
+- The GitHub account is flagged and cannot authorise third-party OAuth, so
+  Netlify is NOT watching the repo — see Deploying above. Once the flag
+  lifts, link the repo in Netlify (Site settings → Build & deploy) and
+  `git push` alone will deploy.
