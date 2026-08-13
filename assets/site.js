@@ -88,16 +88,16 @@ const PROMO_URL = "https://idiglabs.lemonsqueezy.com/checkout/buy/1c27c6f3-41bb-
 const PROMO_VIDEO = "Wf1g0stwn5M";   // YouTube ID — Old School Series demo
 
 const OLDSCHOOL = [
-  { name:"Brick",      kind:"transformer",        knobs:4, meter:"curve" },
-  { name:"Heat",       kind:"saturation",         knobs:3, meter:"vu"    },
-  { name:"Deck",       kind:"tape",               knobs:4, meter:"vu"    },
+  { name:"Brick",      kind:"transformer modelling", knobs:4, meter:"curve" },
+  { name:"Heat",       kind:"eq drive saturation", knobs:3, meter:"vu"    },
+  { name:"Deck",       kind:"cassette and reamp", knobs:4, meter:"vu"    },
   { name:"Slab",       kind:"low-end hype",       knobs:4, meter:"curve" },
-  { name:"Rig",        kind:"amp &amp; cabinet",  knobs:4, meter:"curve" },
-  { name:"Vice",       kind:"compressor",         knobs:4, meter:"vu"    },
-  { name:"Rig Vocal",  kind:"vocal chain",        knobs:3, meter:"curve" },
-  { name:"Voodoo",     kind:"modulation",         knobs:3, meter:null    },
-  { name:"Crank",      kind:"drive",              knobs:2, meter:"vu"    },
-  { name:"Bust",       kind:"destruction",        knobs:3, meter:null    }
+  { name:"Rig",        kind:"mono into stereo",   knobs:4, meter:"curve" },
+  { name:"Vice",       kind:"five aggressive limiters", knobs:4, meter:"vu"    },
+  { name:"Rig Vocal",  kind:"sixties vocal doubler", knobs:3, meter:"curve" },
+  { name:"Voodoo",     kind:"rebuilds itself constantly", knobs:3, meter:null    },
+  { name:"Crank",      kind:"amp that breathes",  knobs:2, meter:"vu"    },
+  { name:"Bust",       kind:"eight physical failures", knobs:3, meter:null    }
 ];
 
 /* ============================================================
