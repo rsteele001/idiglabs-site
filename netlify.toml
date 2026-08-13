@@ -1,0 +1,44 @@
+[build]
+  publish = "."
+  command = ""
+
+# Canonical host — keep one version in the index, avoid duplicate content.
+[[redirects]]
+  from = "https://www.idiglabs.com/*"
+  to = "https://idiglabs.com/:splat"
+  status = 301
+  force = true
+
+# Short links for anything you post to forums or LinkedIn.
+[[redirects]]
+  from = "/free"
+  to = "/oldschool.html"
+  status = 301
+
+[[redirects]]
+  from = "/oldschool"
+  to = "/oldschool.html"
+  status = 301
+
+[[redirects]]
+  from = "/synths"
+  to = "/instruments.html"
+  status = 301
+
+[[redirects]]
+  from = "/apps"
+  to = "/software.html"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
