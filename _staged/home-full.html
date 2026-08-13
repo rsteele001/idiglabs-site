@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iDigLabs — twist til true</title>
+<meta name="description" content="Instruments, processors and utility software for macOS. AU and VST3, universal binary. Buy once, keep it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="sheet">
+
+  <header class="pad">
+    <div class="mast">
+      <a class="brandmark" href="index.html"><i class="dot"></i><span>iDigLabs</span></a>
+      <div class="mast-r">
+        <h1 class="wordmark">twist til true</h1>
+        <div class="lbl mast-sub">instruments · processors · utility software</div>
+      </div>
+    </div>
+    <nav class="navbar" aria-label="Departments">
+      <div class="seg">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="instruments.html">Instruments</a>
+        <a href="plugins.html">Plugins</a>
+        <a href="software.html">Utility software</a>
+        <a href="oldschool.html">Old School</a>
+      </div>
+    </nav>
+    <div class="rule-double"></div>
+    <a class="strip" href="oldschool.html">
+      <span class="l">
+        <b>Old School</b>
+        <span class="sub">Ten processors, free. Perpetual licence, no account, no expiry.</span>
+      </span>
+      <span class="go">Download →</span>
+    </a>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="pad hero">
+    <div class="hero-head">
+      <div class="lbl">Fig. 3 · house signal path — type IDL-1</div>
+      <div class="ref">turn a control</div>
+    </div>
+
+    <div class="schem-wrap">
+      <svg class="schem" viewBox="0 0 1000 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of the iDigLabs house signal path with six adjustable controls">
+        <g fill="none" stroke="#211E1A" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="34" cy="46" r="6" fill="#F0EBE1"/><circle cx="34" cy="166" r="6" fill="#F0EBE1"/>
+          <circle cx="966" cy="46" r="6" fill="#F0EBE1"/><circle cx="966" cy="166" r="6" fill="#F0EBE1"/>
+          <path d="M40 46 H110 M180 46 H222"/><path d="M282 46 H470"/><path d="M530 46 H700"/>
+          <path d="M760 46 H790 M860 46 H960"/><path d="M40 166 H960"/>
+          <rect x="110" y="33" width="70" height="26" fill="#FAF7F0"/>
+          <path d="M222 46 q7.5 -15 15 0 q7.5 -15 15 0 q7.5 -15 15 0 q7.5 -15 15 0"/>
+          <path d="M150 59 V88 M132 88 H168 M132 98 H168 M150 98 V166"/>
+          <path d="M300 46 V66 q15 7.5 0 15 q15 7.5 0 15 q15 7.5 0 15 q15 7.5 0 15 V166"/>
+          <path d="M403 46 V70 M403 122 V166"/><rect x="390" y="70" width="26" height="52" fill="#FAF7F0"/>
+          <path d="M470 46 V66 q15 7.5 0 15 q15 7.5 0 15 q15 7.5 0 15 q15 7.5 0 15 V166"/>
+          <path d="M530 46 V66 q-15 7.5 0 15 q-15 7.5 0 15 q-15 7.5 0 15 q-15 7.5 0 15 V166"/>
+          <path d="M494 58 V154 M506 58 V154"/>
+          <path d="M700 46 q7.5 -15 15 0 q7.5 -15 15 0 q7.5 -15 15 0 q7.5 -15 15 0"/>
+          <rect x="790" y="33" width="70" height="26" fill="#FAF7F0"/>
+          <path d="M905 46 V88 M887 88 H923 M887 98 H923 M905 98 V166"/>
+          <g fill="#211E1A" stroke="none">
+            <circle cx="150" cy="46" r="3"/><circle cx="300" cy="46" r="3"/><circle cx="403" cy="46" r="3"/>
+            <circle cx="150" cy="166" r="3"/><circle cx="300" cy="166" r="3"/><circle cx="403" cy="166" r="3"/>
+            <circle cx="905" cy="46" r="3"/><circle cx="905" cy="166" r="3"/>
+          </g>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#6B635A">
+          <text x="24" y="28">1</text><text x="24" y="192">2</text>
+          <text x="960" y="28">3</text><text x="960" y="192">4</text>
+          <text x="128" y="26">Rs1</text><text x="234" y="26">Llk1</text><text x="160" y="97">Cp</text>
+          <text x="312" y="112">Lm</text><text x="424" y="100">Rp</text><text x="479" y="26">10:1</text>
+          <text x="712" y="26">Llk2</text><text x="808" y="26">Rs2</text><text x="915" y="97">Cs</text>
+        </g>
+        <g fill="none" stroke="#A9A093" stroke-width="1" stroke-dasharray="3 4">
+          <path d="M145 59 V236"/><path d="M300 132 V236"/><path d="M403 122 V206 H470 V236"/>
+          <path d="M500 154 V206 H620 V236"/><path d="M737 40 V206 H780 V236"/><path d="M905 106 V236"/>
+        </g>
+        <g id="knobs"></g>
+      </svg>
+    </div>
+
+    <div class="figs">
+      <div class="fig">
+        <div class="fig-head"><span class="lbl">Fig. 2 · <span id="meterName">twist</span></span><span class="ref spot" id="meterVal">0 %</span></div>
+        <svg viewBox="0 0 340 132" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M40 116 A128 128 0 0 1 300 116" fill="none" stroke="#DFD7C9" stroke-width="1"/>
+          <path d="M52 112 A116 116 0 0 1 288 112" fill="none" stroke="#211E1A" stroke-width="1.2"/>
+          <path d="M243 62 A116 116 0 0 1 288 112" fill="none" stroke="#B0663F" stroke-width="2.4"/>
+          <g id="meterTicks" stroke="#211E1A" stroke-width="1"></g>
+          <line id="needle" x1="170" y1="116" x2="80" y2="52" stroke="#211E1A" stroke-width="1.6"/>
+          <circle cx="170" cy="116" r="6" fill="#171514"/>
+        </svg>
+        <p class="fig-note" id="stageNote"><b>Nothing yet.</b> That is also a setting.</p>
+      </div>
+
+      <div class="fig">
+        <div class="fig-head"><span class="lbl">Fig. 1 · response</span><span class="lbl spot">saturation</span></div>
+        <svg viewBox="0 0 560 176" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g stroke="#DFD7C9" stroke-width="1">
+            <line x1="150" y1="8" x2="150" y2="150"/><line x1="270" y1="8" x2="270" y2="150"/>
+            <line x1="390" y1="8" x2="390" y2="150"/><line x1="470" y1="8" x2="470" y2="150"/>
+            <line x1="14" y1="79" x2="546" y2="79" stroke-dasharray="2 5"/>
+          </g>
+          <line x1="14" y1="150" x2="546" y2="150" stroke="#211E1A" stroke-width="1"/>
+          <path id="satFill" d="" fill="#D9BCA6" opacity=".55"/>
+          <path id="curve" d="" fill="none" stroke="#211E1A" stroke-width="2"/>
+          <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#6B635A">
+            <text x="14" y="166">20</text><text x="138" y="166">100</text><text x="258" y="166">1k</text>
+            <text x="378" y="166">5k</text><text x="452" y="166">10k</text><text x="518" y="166">20k</text>
+          </g>
+        </svg>
+        <p class="fig-note">Every instrument ships with a randomiser. Not a gimmick — the fastest route past the preset you would have picked anyway. <b>Twist til true, then save.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEDE ============ -->
+  <section class="pad lede">
+    <div>
+      <p class="drop">iDigLabs builds instruments, processors and utility software for people who have to deliver something on Monday. One room, one engineer, thirty years of sessions behind every default.</p>
+      <p>No subscription. No account. No cloud. You buy a licence, you keep it, and it runs on the machine in front of you whether or not anyone is still around to authorise it.</p>
+      <p>Universal binary, AU and VST3, notarised under one Developer ID. Everything installs without an argument.</p>
+    </div>
+    <div class="method">
+      <div class="lbl">Method</div>
+      <ul>
+        <li><b>The wire counts</b>Modelling the boxes is the easy half. What most collections never model is what happens between them — transformers loading the input, cable capacitance rolling the top, one stage driven hot into the next.</li>
+        <li><b>Randomise, then judge</b>The randomiser gets you somewhere you would not have typed. Your ears do the rest. Some units — by design — have none at all; a unit with one job does not need luck.</li>
+        <li><b>Mono-safe or it ships broken</b>Width that collapses on a phone speaker is not width. Everything is checked in mono before it leaves.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ DEPARTMENTS ============ -->
+  <section class="pad">
+    <div class="section-head"><h2>Departments</h2><span class="lbl">three benches, one bill of materials</span></div>
+    <div class="depts">
+
+      <a class="dept" href="instruments.html">
+        <div class="dept-plate" data-plate="wave"></div>
+        <h3>Instruments</h3>
+        <p>Polysynths, wavetables, FM and one very mean mono lead. Every one of them ships with the randomiser and the same house effects rack.</p>
+        <div class="dept-foot"><span class="ref">7 units · $39–69</span><span class="go">View →</span></div>
+      </a>
+
+      <a class="dept" href="plugins.html">
+        <div class="dept-plate" data-plate="chain"></div>
+        <h3>Plugins</h3>
+        <p>Processors. Transformers, master bus, effects, and a three-unit collection that models the wire between the boxes instead of just the boxes.</p>
+        <div class="dept-foot"><span class="ref">4 units · $39–79</span><span class="go">View →</span></div>
+      </a>
+
+      <a class="dept" href="software.html">
+        <div class="dept-plate" data-plate="folder"></div>
+        <h3>Utility software</h3>
+        <p>Native Mac apps for the part of the job nobody sells tickets to: finding the library, auditioning the file, getting the drive back under control.</p>
+        <div class="dept-foot"><span class="ref">3 apps · $29–39</span><span class="go">View →</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="pad">
+      <div class="parambar">
+        <span class="ref">iDigLabs</span>
+        <div class="fields">
+          <span class="field"><span class="lbl">Format</span><span class="val">AU · VST3</span></span>
+          <span class="field"><span class="lbl">Arch</span><span class="val">universal</span></span>
+          <span class="field"><span class="lbl">macOS</span><span class="val">11.0+</span></span>
+          <span class="field"><span class="lbl">Licence</span><span class="val">perpetual</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="band"><span>iDigLabs</span></div>
+    <div class="colophon">
+      <span>© 2026 iDigLabs. Notarised under Developer ID. Sold through Lemon Squeezy.</span>
+      <span><a href="mailto:ron@idigmusic.com">ron@idigmusic.com</a></span>
+    </div>
+  </footer>
+</div>
+
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+<script src="/assets/site.js"></script>
+<script>
+document.querySelectorAll("[data-plate]").forEach(n=>{ n.innerHTML = plate(n.dataset.plate); });
+wireCheckout();
+</script>
+</body>
+</html>

@@ -11,20 +11,43 @@ Pushing to `main` deploys. There is nothing to compile.
 ## Architecture
 
 ```
-index.html          Homepage — interactive hero schematic, method, department cards
-instruments.html    7 synths + Discovery Series bundle
-plugins.html        4 processors
-software.html       3 macOS apps
-oldschool.html      Free 10-plugin rack + demo video + checkout
+index.html          LIVE — the free Old School rack. This is the whole site.
 404.html            Branded error page
-netlify.toml        Redirects, headers, short links (/free, /synths, /apps)
+netlify.toml        Redirects, headers, staged-page notes
+robots.txt          Blocks /_staged/ from crawlers
 assets/site.css     All styling. CSS variables at the top.
 assets/site.js      All data and all behaviour.
+
+_staged/            NOT LIVE. Finished pages held back for staggered launch.
+  home-full.html      The original four-department storefront homepage
+  instruments.html    7 synths + Discovery Series bundle
+  plugins.html        4 processors
+  software.html       3 macOS apps
 ```
 
 Every page is hand-written HTML sharing `assets/site.css` and
 `assets/site.js`. Pages differ only in their masthead, intro copy, spec
 table, and which render function they call at the bottom.
+
+## Launch strategy — read before adding pages
+
+The site is deliberately ONE page. Old School is a free ten-plugin
+giveaway; the paid catalogue is released a product at a time so each drop
+is its own announcement. Do not restore the department nav or link the
+staged pages unless explicitly asked.
+
+**To launch a department:**
+
+1. `git mv _staged/instruments.html .`
+2. Add its nav link back to `index.html` (a `.seg` nav block — see
+   `_staged/home-full.html` for the markup)
+3. Remove that page's note from `netlify.toml`
+4. Add its URL to `sitemap.xml`
+5. Confirm every `PRODUCTS[].url` on that page is a real Lemon Squeezy
+   checkout link, not `"#"`
+
+The staged pages are finished and current. They render correctly the
+moment they are moved back.
 
 ## The one rule
 
@@ -108,8 +131,23 @@ and use the Netlify deploy preview URL before merging.
 ## Known open items
 
 - The ten `OLDSCHOOL[].kind` one-liners are placeholders and need rewriting.
-- BRICK is listed at $49 on `plugins.html` and is also OS-01 in the free
-  Old School rack. This is a contradiction that needs a decision, not code.
-- All `PRODUCTS[].url` values except Old School are still `"#"`. They need
-  real Lemon Squeezy checkout URLs before launch.
+  These are the only words describing each plugin on the live page.
+- All `PRODUCTS[].url` values are still `"#"`. Each staged page needs real
+  Lemon Squeezy checkout URLs before it can be moved out of `_staged/`.
+- BRICK appears at $49 in `PRODUCTS` and is also OS-01 in the free Old
+  School rack. Not visible while `plugins.html` is staged, but it must be
+  resolved before that page launches.
 - Discovery Series price ($99) is provisional.
+
+## Deploying right now
+
+The GitHub account is flagged and cannot authorise third-party OAuth, so
+Netlify is NOT watching the repo. `git push` does not deploy. Publish with:
+
+```bash
+netlify deploy --prod
+```
+
+Keep committing and pushing to git regardless — the history matters. Once
+GitHub lifts the flag, link the repo in Netlify (Site settings → Build &
+deploy) and `git push` alone will deploy.

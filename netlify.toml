@@ -2,33 +2,39 @@
   publish = "."
   command = ""
 
-# Canonical host — keep one version in the index, avoid duplicate content.
+# Canonical host
 [[redirects]]
   from = "https://www.idiglabs.com/*"
   to = "https://idiglabs.com/:splat"
   status = 301
   force = true
 
-# Short links for anything you post to forums or LinkedIn.
+# Short links — everything currently points at the front page.
 [[redirects]]
   from = "/free"
-  to = "/oldschool.html"
+  to = "/"
   status = 301
 
 [[redirects]]
   from = "/oldschool"
-  to = "/oldschool.html"
+  to = "/"
   status = 301
 
 [[redirects]]
-  from = "/synths"
-  to = "/instruments.html"
+  from = "/oldschool.html"
+  to = "/"
   status = 301
 
-[[redirects]]
-  from = "/apps"
-  to = "/software.html"
-  status = 301
+# ---------------------------------------------------------------
+# STAGED PAGES — not live yet.
+# To launch a department: move the file from _staged/ back to the
+# repo root, add its nav link, and delete its block below.
+#   /instruments.html   _staged/instruments.html
+#   /plugins.html       _staged/plugins.html
+#   /software.html      _staged/software.html
+#   /home-full.html     _staged/home-full.html  (original storefront homepage)
+# Files inside _staged/ are excluded from crawling via robots.txt.
+# ---------------------------------------------------------------
 
 [[headers]]
   for = "/*"
@@ -42,3 +48,8 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/_staged/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /_staged/
 
 Sitemap: https://idiglabs.com/sitemap.xml
