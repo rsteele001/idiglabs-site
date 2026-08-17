@@ -51,6 +51,13 @@
 # Files inside _staged/ are excluded from crawling via robots.txt.
 # ---------------------------------------------------------------
 
+# Staged pages are not public. Remove this rule when a page launches.
+[[redirects]]
+  from = "/_staged/*"
+  to = "/"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

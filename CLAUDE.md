@@ -153,6 +153,19 @@ GitHub lifts the flag, link the repo in Netlify (Site settings → Build &
 deploy) and `git push` alone will deploy.
 
 
+## Licensing model — no phone home
+
+The software makes **no network requests at all**. No activation call, no
+licence check, no telemetry, no update ping. Payhip generates a unique key
+per sale and emails it; the key is proof of purchase, validated on the
+user's machine or not at all.
+
+Payhip does expose a licence verification API (`/api/v2/license/verify`).
+**We deliberately do not use it.** Do not add it, and do not reintroduce any
+network call into a plug-in without changing the privacy policy and the
+terms the same day — both now state plainly that the software never
+contacts a server.
+
 ## Payment provider
 
 Payhip is the Merchant of Record. Migrated from Lemon Squeezy in August 2026.
