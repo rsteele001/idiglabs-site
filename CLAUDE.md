@@ -153,18 +153,21 @@ GitHub lifts the flag, link the repo in Netlify (Site settings → Build &
 deploy) and `git push` alone will deploy.
 
 
-## Licensing model — no phone home
+## Licensing model — CURRENT STATE
 
-The software makes **no network requests at all**. No activation call, no
-licence check, no telemetry, no update ping. Payhip generates a unique key
-per sale and emails it; the key is proof of purchase, validated on the
-user's machine or not at all.
+**As shipped today, plug-ins DO contact a licence server.** Eleven products
+call `api.lemonsqueezy.com` on activation and re-validation. The legal pages
+describe this accurately.
 
-Payhip does expose a licence verification API (`/api/v2/license/verify`).
-**We deliberately do not use it.** Do not add it, and do not reintroduce any
-network call into a plug-in without changing the privacy policy and the
-terms the same day — both now state plainly that the software never
-contacts a server.
+The intended end state is no network calls at all: a key entered once,
+validated locally, with a 30-day Keychain-stored trial. Payhip's licence
+verification API will NOT be used.
+
+**Until the plug-ins are actually stripped, do not add "no phone home" or
+"never contacts a server" language to any page.** That claim was published
+on 17 Aug 2026 and reverted the same day because it contradicted the
+shipped binaries. When the rewrite lands, the stronger language can return —
+privacy policy and terms must change in the same deploy.
 
 ## Payment provider
 
