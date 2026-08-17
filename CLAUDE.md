@@ -5,8 +5,8 @@ Context for Claude Code working in this repo.
 ## What this is
 
 The iDigLabs storefront. Static HTML, no build step, no framework, no
-dependencies. Deployed to Netlify via the Netlify CLI (`netlify deploy
---prod`) — see Deploying below. There is nothing to compile.
+dependencies. Deployed to Netlify from the `main` branch of GitHub.
+Pushing to `main` deploys. There is nothing to compile.
 
 ## Architecture
 
@@ -43,7 +43,7 @@ staged pages unless explicitly asked.
    `_staged/home-full.html` for the markup)
 3. Remove that page's note from `netlify.toml`
 4. Add its URL to `sitemap.xml`
-5. Confirm every `PRODUCTS[].url` on that page is a real Lemon Squeezy
+5. Confirm every `PRODUCTS[].url` on that page is a real Payhip
    checkout link, not `"#"`
 
 The staged pages are finished and current. They render correctly the
@@ -63,7 +63,7 @@ Append one object to `PRODUCTS`:
 ```js
 { group:"plugins", ref:"IDL-105", name:"Anvil", art:"chain", status:"new",
   kind:"compressor · feedback topology", price:49,
-  url:"https://idiglabs.lemonsqueezy.com/checkout/buy/UUID",
+  url:"https://idiglabs.payhip.com/checkout/buy/UUID",
   copy:"One paragraph. <b>Bold</b> is allowed. No other tags." }
 ```
 
@@ -110,39 +110,67 @@ inline SVG drawn in `site.js` or in the page.
 ## Constraints
 
 - No build step. Do not add npm, bundlers, or a static site generator.
-- No external JS beyond `lemon.js` (Lemon Squeezy checkout) and Google Fonts.
+- No external JS beyond `payhip.js` (Payhip checkout) and Google Fonts.
 - No `localStorage` or cookies.
 - The YouTube embed is a click-to-load facade in `mountVideo()` — keep it
   that way; do not replace it with a bare iframe.
 - Every checkout link gets `data-ls`. `wireCheckout()` appends `?embed=1`
-  and the `lemonsqueezy-button` class automatically at runtime.
+  and the `payhip-button` class automatically at runtime.
 
 ## Deploying
-
-`git push` does **not** deploy — the GitHub account is flagged and Netlify
-is not linked to the repo. Deploys happen via the Netlify CLI only:
 
 ```bash
 git add .
 git commit -m "what changed"
 git push
-netlify deploy --prod
 ```
 
-Still commit and push for history, but the site only goes live once
-`netlify deploy --prod` runs.
+Netlify rebuilds in ~15 seconds. For anything risky, push a branch instead
+and use the Netlify deploy preview URL before merging.
 
 ## Known open items
 
 - The ten `OLDSCHOOL[].kind` one-liners are placeholders and need rewriting.
   These are the only words describing each plugin on the live page.
 - All `PRODUCTS[].url` values are still `"#"`. Each staged page needs real
-  Lemon Squeezy checkout URLs before it can be moved out of `_staged/`.
+  Payhip checkout URLs before it can be moved out of `_staged/`.
 - BRICK appears at $49 in `PRODUCTS` and is also OS-01 in the free Old
   School rack. Not visible while `plugins.html` is staged, but it must be
   resolved before that page launches.
 - Discovery Series price ($99) is provisional.
-- The GitHub account is flagged and cannot authorise third-party OAuth, so
-  Netlify is NOT watching the repo — see Deploying above. Once the flag
-  lifts, link the repo in Netlify (Site settings → Build & deploy) and
-  `git push` alone will deploy.
+
+## Deploying right now
+
+The GitHub account is flagged and cannot authorise third-party OAuth, so
+Netlify is NOT watching the repo. `git push` does not deploy. Publish with:
+
+```bash
+netlify deploy --prod
+```
+
+Keep committing and pushing to git regardless — the history matters. Once
+GitHub lifts the flag, link the repo in Netlify (Site settings → Build &
+deploy) and `git push` alone will deploy.
+
+
+## Payment provider
+
+Payhip is the Merchant of Record. Migrated from Lemon Squeezy in August 2026.
+
+- `payhip.js` loads in `<head>` on any page with a buy button.
+- A buy link needs `class="payhip-buy-button"` and `data-product="<code>"`.
+  `wireCheckout()` adds both automatically to any `a[data-ls]` pointing at a
+  `payhip.com/b/<code>` URL, so product data only needs the plain URL.
+- Old School free product: `https://payhip.com/b/lziae` (code `lziae`).
+- All three legal pages name Payhip as Merchant of Record. If the provider
+  changes again, those pages must change the same day.
+
+## After any working-tree replacement
+
+The `.netlify` link file lives in the working tree, not in `.git`. If the
+folder is replaced wholesale, run this before deploying or the CLI will
+create a stray project:
+
+```bash
+netlify link --name idiglabs
+```

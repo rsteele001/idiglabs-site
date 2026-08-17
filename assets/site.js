@@ -1,7 +1,7 @@
 /* ============================================================
    iDigLabs — shared data + renderers
    EDIT ONLY THE PRODUCTS ARRAY. Everything else is plumbing.
-   price + url are PLACEHOLDERS until real Lemon Squeezy links land.
+   price + url are PLACEHOLDERS until real Payhip links land.
    group: "instruments" | "plugins" | "software"
    status: "" | "new" | "soon"
    art: transformer | ladder | wave | fm | chain | stack | folder | tag | disc
@@ -84,7 +84,8 @@ const FAMILIES = [
    OLDSCHOOL[].kind: one-liners are PLACEHOLDERS — rewrite each.
    knobs/meter drive the drawn front panel. meter: "vu"|"curve"|null
    ============================================================ */
-const PROMO_URL = "https://idiglabs.lemonsqueezy.com/checkout/buy/1c27c6f3-41bb-4d4b-9d07-f6759276f42b";
+const PROMO_URL = "https://payhip.com/b/lziae";        // Payhip product page
+const PROMO_PRODUCT = "lziae";                        // Payhip product code
 const PROMO_VIDEO = "Wf1g0stwn5M";   // YouTube ID — Old School Series demo
 
 const OLDSCHOOL = [
@@ -290,13 +291,21 @@ function renderRack(hostId){
   });
 }
 
-/* Wire every [data-ls] link to the Lemon Squeezy overlay checkout. */
+/* Wire every [data-ls] link to the Payhip overlay checkout.
+   Payhip needs class="payhip-buy-button" and data-product="<code>" on the
+   anchor; payhip.js binds the overlay on load. Set each product's `url`
+   to its Payhip page and `payhip` to its product code. */
 function wireCheckout(){
   document.querySelectorAll("a[data-ls]").forEach(a=>{
-    if(!a.getAttribute("href") || a.getAttribute("href")==="#") a.href = PROMO_URL;
-    if(a.href.indexOf("lemonsqueezy.com")>-1){
-      if(a.href.indexOf("embed=1")<0) a.href += (a.href.indexOf("?")>-1?"&":"?")+"embed=1";
-      a.classList.add("lemonsqueezy-button");
+    const href = a.getAttribute("href");
+    if(!href || href==="#") a.href = PROMO_URL;
+    if(a.href.indexOf("payhip.com")>-1){
+      a.classList.add("payhip-buy-button");
+      if(!a.dataset.theme) a.dataset.theme = "none";
+      if(!a.dataset.product){
+        const m = a.href.match(/payhip\.com\/b\/([A-Za-z0-9]+)/);
+        if(m) a.dataset.product = m[1];
+      }
     }
   });
 }
