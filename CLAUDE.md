@@ -171,15 +171,23 @@ privacy policy and terms must change in the same deploy.
 
 ## Payment provider
 
-Payhip is the Merchant of Record. Migrated from Lemon Squeezy in August 2026.
+Payhip processes payments and issues licence keys. Migrated from Lemon Squeezy
+in August 2026.
+
+Payhip is NOT the merchant of record — the seller is Ron Steele, trading as
+iDigLabs. Payhip's role is tax-specific and varies by territory: marketplace
+facilitator in the US, digital platform operator in Canada, and reseller for
+VAT in the EU and UK. It collects and remits the applicable tax in those
+capacities. Do not reintroduce "Merchant of Record" anywhere.
 
 - `payhip.js` loads in `<head>` on any page with a buy button.
 - A buy link needs `class="payhip-buy-button"` and `data-product="<code>"`.
   `wireCheckout()` adds both automatically to any `a[data-ls]` pointing at a
   `payhip.com/b/<code>` URL, so product data only needs the plain URL.
 - Old School free product: `https://payhip.com/b/lziae` (code `lziae`).
-- All three legal pages name Payhip as Merchant of Record. If the provider
-  changes again, those pages must change the same day.
+- All three legal pages describe Payhip's tax role in those terms. If the
+  provider changes again, or its role does, those pages must change the same
+  day.
 
 ## After any working-tree replacement
 

@@ -90,13 +90,13 @@ const PROMO_VIDEO = "Wf1g0stwn5M";   // YouTube ID — Old School Series demo
 
 const OLDSCHOOL = [
   { name:"Brick",      kind:"transformer",        knobs:4, meter:"curve" },
-  { name:"Heat",       kind:"saturation",         knobs:3, meter:"vu"    },
+  { name:"Heat",       kind:"saturation eq",      knobs:3, meter:"vu"    },
   { name:"Deck",       kind:"tape",               knobs:4, meter:"vu"    },
   { name:"Slab",       kind:"low-end hype",       knobs:4, meter:"curve" },
   { name:"Rig",        kind:"effects rack",       knobs:4, meter:"curve" },
   { name:"Vice",       kind:"compressor",         knobs:4, meter:"vu"    },
   { name:"Rig Vocal",  kind:"vocal chain",        knobs:3, meter:"curve" },
-  { name:"Voodoo",     kind:"modulation",         knobs:3, meter:null    },
+  { name:"Voodoo",     kind:"potluck mayhem",     knobs:3, meter:null    },
   { name:"Crank",      kind:"small amp and room", knobs:2, meter:"vu"    },
   { name:"Bust",       kind:"destruction",        knobs:3, meter:null    }
 ];
