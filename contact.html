@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — iDigLabs</title>
+<meta name="description" content="Contact iDigLabs about the Old School Series, the Discovery Series, or a licence key.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div class="sheet">
+
+  <header class="pad">
+    <div class="mast">
+      <a class="brandmark" href="/"><i class="dot"></i><span>iDigLabs</span></a>
+      <div class="mast-r">
+        <h1 class="wordmark">contact</h1>
+        <div class="lbl mast-sub">support · licensing · everything else</div>
+      </div>
+    </div>
+    <nav class="legalnav" aria-label="Legal">
+      <a href="/legal/terms.html">Terms</a>
+      <a href="/legal/refunds.html">Refunds</a>
+      <a href="/legal/privacy.html">Privacy</a>
+      <a href="/">Back to site</a>
+    </nav>
+    <div class="rule-double"></div>
+  </header>
+
+  <section class="pad legal">
+
+    <div class="callout" id="sent" hidden>
+      <p><b>Message sent.</b> It has reached us and we will reply to the address you
+      gave, usually within two business days.</p>
+    </div>
+
+    <p class="contact-direct">One person reads this, so plain English beats a support
+    ticket template. If you would rather send mail directly, the address is
+    <span class="addr">idiglabs@gmail.com</span>.</p>
+
+    <h2>Send a message</h2>
+
+    <form name="contact" method="POST" class="cform"
+          data-netlify="true" netlify-honeypot="bot-field"
+          action="/contact.html?sent=1">
+
+      <!-- Netlify needs this to match the form's name attribute when the page is
+           served as static HTML rather than rendered by a framework. -->
+      <input type="hidden" name="form-name" value="contact">
+
+      <!-- Honeypot. A human never sees this; a bot that fills it is discarded. -->
+      <p class="hp">
+        <label>Do not fill this in <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+      </p>
+
+      <div class="row">
+        <label for="cf-name">Your name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required>
+      </div>
+
+      <div class="row">
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="row">
+        <label for="cf-subject">Subject</label>
+        <select id="cf-subject" name="subject" required>
+          <option value="Old School">Old School</option>
+          <option value="Discovery Series">Discovery Series</option>
+          <option value="Licence key">Licence key</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" required></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="buy" type="submit">Send</button>
+        <span class="fine">If you are writing about a licence key, include the email
+        address you bought with — that is what we search on.</span>
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    <div class="pad">
+      <div class="parambar">
+        <span class="ref">Ron Steele · trading as iDigLabs</span>
+        <div class="fields">
+          <span class="field"><span class="lbl">Reply</span><span class="val">2 business days</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="band"><span>iDigLabs</span></div>
+    <div class="colophon">
+      <span>© 2026 Ron Steele, trading as iDigLabs. Notarised under Developer ID.</span>
+      <span class="legallinks"><a href="/legal/terms.html">Terms</a><a href="/legal/refunds.html">Refunds</a><a href="/legal/privacy.html">Privacy</a><a href="/contact.html">Contact</a> <span class="addr">idiglabs@gmail.com</span></span>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Netlify posts the form and returns here with ?sent=1. Reveal the receipt and
+  // drop the query string so a refresh does not re-show it.
+  if (new URLSearchParams(location.search).get("sent") === "1") {
+    var box = document.getElementById("sent");
+    if (box) { box.hidden = false; box.scrollIntoView({block:"nearest"}); }
+    history.replaceState({}, "", location.pathname);
+  }
+</script>
+</body>
+</html>

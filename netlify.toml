@@ -40,6 +40,11 @@
   to = "/legal/privacy.html"
   status = 301
 
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 301
+
 # ---------------------------------------------------------------
 # STAGED PAGES — not live yet.
 # To launch a department: move the file from _staged/ back to the

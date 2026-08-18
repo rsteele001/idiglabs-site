@@ -284,3 +284,30 @@ body{
   .wordmark{white-space:normal}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- contact form ---------- */
+/* Sits inside .legal, so type sizing and the 660px measure are inherited. */
+.cform{margin-top:4px}
+.cform .row{margin:0 0 15px}
+.cform label{display:block;font-family:var(--sans);font-size:10px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
+.cform input[type="text"],.cform input[type="email"],.cform select,.cform textarea{
+  width:100%;font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--ink);
+  background:var(--panel);border:1px solid var(--ink);border-radius:0;padding:9px 11px;
+  -webkit-appearance:none;appearance:none;
+}
+.cform textarea{min-height:180px;resize:vertical}
+/* Native caret is suppressed above, so draw one. Inline SVG, no extra request. */
+.cform select{
+  padding-right:34px;background-repeat:no-repeat;
+  background-position:right 12px center;background-size:9px 6px;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6'%3E%3Cpath d='M0 0h9L4.5 6z' fill='%23211E1A'/%3E%3C/svg%3E");
+}
+.cform input:focus,.cform select:focus,.cform textarea:focus{
+  outline:2px solid var(--spot);outline-offset:1px}
+.cform .actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px}
+.cform .fine{font-size:12px;color:var(--ink-soft);line-height:1.4;flex:1;min-width:200px}
+/* Honeypot. Off-screen rather than display:none — some bots skip hidden fields. */
+.cform .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.contact-direct{font-size:14.5px;margin:0 0 18px}
+.contact-direct .addr{font-family:var(--mono);font-size:13.5px}
