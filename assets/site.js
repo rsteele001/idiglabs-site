@@ -32,7 +32,7 @@ const PRODUCTS = [
 
   { group:"instruments", ref:"IDL-206", name:"Axel", art:"fm", status:"", family:"discovery",
     kind:"frequency modulation · dark", price:39, url:"#",
-    copy:"Metal, wood, and the low end that comes with them. <b>Forge</b> is the soft-saturation stage the whole catalogue is built on — this is where it first shipped." },
+    copy:"Metal, wood, and the low end that comes with them. <b>Forge</b> is the soft-saturation stage the whole catalog is built on — this is where it first shipped." },
 
   { group:"instruments", ref:"IDL-207", name:"Trixie", art:"fm", status:"", family:"discovery",
     kind:"frequency modulation · glassy", price:39, url:"#",
@@ -45,7 +45,7 @@ const PRODUCTS = [
 
   { group:"plugins", ref:"IDL-102", name:"Matrix:Endgame", art:"chain", status:"",
     kind:"master bus · four stages", price:59, url:"#",
-    copy:"Saturation, glue, width, ceiling — in that order, because that is the order that works. Three saturation profiles at stage three. The last plug-in on the chain and the last decision you make." },
+    copy:"Saturation, glue, width, ceiling — in that order, because that is the order that works. Three saturation profiles at stage three. The last plugin on the chain and the last decision you make." },
 
   { group:"plugins", ref:"IDL-103", name:"Trilogy", art:"chain", status:"",
     kind:"effects · three modes", price:39, url:"#",
@@ -53,12 +53,12 @@ const PRODUCTS = [
 
   { group:"plugins", ref:"IDL-104", name:"Old School", art:"stack", status:"free",
     kind:"collection · ten units · free", price:0, url:"oldschool.html",
-    copy:"Modelling the boxes is the easy half. What nobody models is the wire between them — transformers loading the input, cable capacitance rolling the top, one stage driven hot into the next. All ten built as one chain. <b>Free, with a perpetual licence. No trial, no expiry, no catch.</b>" },
+    copy:"Modeling the boxes is the easy half. What nobody models is the wire between them — transformers loading the input, cable capacitance rolling the top, one stage driven hot into the next. All ten built as one chain. <b>Free, with a perpetual license. No trial, no expiry, no catch.</b>" },
 
   /* ---------------- UTILITY SOFTWARE ---------------- */
   { group:"software", ref:"IDL-301", name:"Lost &amp; Found", art:"folder", status:"",
     kind:"macOS app · Kontakt library browser", price:39, url:"#",
-    copy:"Finds every Kontakt library on every drive, including the ones the installer lost, and sorts them by the vendor who actually made them. Drag in anything the scan missed and it stays put. No account, no catalogue, no storefront." },
+    copy:"Finds every Kontakt library on every drive, including the ones the installer lost, and sorts them by the vendor who actually made them. Drag in anything the scan missed and it stays put. No account, no catalog, no storefront." },
 
   { group:"software", ref:"IDL-302", name:"Tag &amp; Find", art:"tag", status:"",
     kind:"macOS app · audio file browser", price:39, url:"#",

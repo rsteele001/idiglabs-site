@@ -32,7 +32,7 @@ table, and which render function they call at the bottom.
 ## Launch strategy — read before adding pages
 
 The site is deliberately ONE page. Old School is a free ten-plugin
-giveaway; the paid catalogue is released a product at a time so each drop
+giveaway; the paid catalog is released a product at a time so each drop
 is its own announcement. Do not restore the department nav or link the
 staged pages unless explicitly asked.
 
@@ -92,7 +92,7 @@ the drawing. The panels are drawn by `rackFace()` — they are not images.
 
 ## Design system
 
-Do not introduce new colours, fonts, or spacing values. Everything comes
+Do not introduce new colors, fonts, or spacing values. Everything comes
 from the CSS variables at the top of `site.css`:
 
 - Paper `#F0EBE1`, panel `#FAF7F0`, ink `#211E1A`, spot `#B0663F`
@@ -155,15 +155,15 @@ deploy) and `git push` alone will deploy.
 
 ## Licensing model — CURRENT STATE
 
-**As shipped today, plug-ins DO contact a licence server.** Eleven products
+**As shipped today, plugins DO contact a license server.** Eleven products
 call `api.lemonsqueezy.com` on activation and re-validation. The legal pages
 describe this accurately.
 
 The intended end state is no network calls at all: a key entered once,
-validated locally, with a 30-day Keychain-stored trial. Payhip's licence
+validated locally, with a 30-day Keychain-stored trial. Payhip's license
 verification API will NOT be used.
 
-**Until the plug-ins are actually stripped, do not add "no phone home" or
+**Until the plugins are actually stripped, do not add "no phone home" or
 "never contacts a server" language to any page.** That claim was published
 on 17 Aug 2026 and reverted the same day because it contradicted the
 shipped binaries. When the rewrite lands, the stronger language can return —
@@ -171,7 +171,7 @@ privacy policy and terms must change in the same deploy.
 
 ## Payment provider
 
-Payhip processes payments and issues licence keys. Migrated from Lemon Squeezy
+Payhip processes payments and issues license keys. Migrated from Lemon Squeezy
 in August 2026.
 
 Payhip is NOT the merchant of record — the seller is Ron Steele, trading as

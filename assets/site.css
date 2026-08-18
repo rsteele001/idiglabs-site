@@ -178,9 +178,13 @@ body{
 .promo-lead p:last-child{margin-bottom:0}
 
 .counter{background:var(--panel);border:1px solid var(--ink);padding:14px 16px 15px}
-.counter-num{display:flex;align-items:baseline;gap:10px;margin:4px 0 2px}
-.counter-num b{font-family:var(--mono);font-size:52px;font-weight:500;line-height:1;letter-spacing:-.02em}
-.counter-num span{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+/* The headline value in the spec aside. This was .counter-num, sized at 52px in
+   mono for a live countdown digit; it now holds a word, so it is set as display
+   type in the site's sans rather than as a number. */
+.counter-val{display:flex;align-items:baseline;gap:10px;margin:7px 0 3px}
+.counter-val b{font-family:var(--sans);font-size:27px;font-weight:600;line-height:1.05;
+  letter-spacing:.14em;text-transform:uppercase}
+.counter-val span{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
 .counter dl{margin:10px 0 0;display:grid;grid-template-columns:auto 1fr;gap:5px 14px;align-items:baseline;
   border-top:1px solid var(--hair);padding-top:10px}
 .counter dt{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
@@ -286,28 +290,56 @@ body{
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 /* ---------- contact form ---------- */
-/* Sits inside .legal, so type sizing and the 660px measure are inherited. */
-.cform{margin-top:4px}
-.cform .row{margin:0 0 15px}
-.cform label{display:block;font-family:var(--sans);font-size:10px;font-weight:500;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
-.cform input[type="text"],.cform input[type="email"],.cform select,.cform textarea{
-  width:100%;font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--ink);
-  background:var(--panel);border:1px solid var(--ink);border-radius:0;padding:9px 11px;
-  -webkit-appearance:none;appearance:none;
+/* Sits inside .legal, so the 660px measure and body type are inherited. Every
+   control restates font-family: form elements do NOT inherit it from the page,
+   which is what makes an unstyled form fall back to the browser's own UI font. */
+.cform{margin-top:2px;max-width:100%}
+.cform .row{margin:0 0 16px;min-width:0}
+
+/* Labels carry .lbl in the markup as well, so they keep the site's uppercase
+   label style even if this rule is ever missed. */
+.cform label{display:block;margin-bottom:6px}
+
+.cform input[type="text"],
+.cform input[type="email"],
+.cform select,
+.cform textarea{
+  display:block;width:100%;max-width:100%;
+  font-family:var(--sans);font-size:14.5px;line-height:1.55;color:var(--ink);
+  background:var(--panel);border:1px solid var(--rule);border-radius:0;
+  padding:10px 12px;-webkit-appearance:none;appearance:none;
+  transition:border-color .12s ease;
 }
+.cform input[type="text"]:hover,
+.cform input[type="email"]:hover,
+.cform select:hover,
+.cform textarea:hover{border-color:var(--ink)}
 .cform textarea{min-height:180px;resize:vertical}
-/* Native caret is suppressed above, so draw one. Inline SVG, no extra request. */
+
+/* The native caret is suppressed above, so draw one. Inline SVG, no request. */
 .cform select{
   padding-right:34px;background-repeat:no-repeat;
   background-position:right 12px center;background-size:9px 6px;
   background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6'%3E%3Cpath d='M0 0h9L4.5 6z' fill='%23211E1A'/%3E%3C/svg%3E");
 }
+
 .cform input:focus,.cform select:focus,.cform textarea:focus{
-  outline:2px solid var(--spot);outline-offset:1px}
-.cform .actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px}
-.cform .fine{font-size:12px;color:var(--ink-soft);line-height:1.4;flex:1;min-width:200px}
-/* Honeypot. Off-screen rather than display:none — some bots skip hidden fields. */
-.cform .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-.contact-direct{font-size:14.5px;margin:0 0 18px}
-.contact-direct .addr{font-family:var(--mono);font-size:13.5px}
+  border-color:var(--ink);outline:2px solid var(--spot);outline-offset:1px}
+
+.cform .actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px}
+.cform .actions .fine{font-size:12px;color:var(--ink-soft);line-height:1.4;
+  flex:1 1 220px;min-width:0}
+
+/* Honeypot. Also carries inline display:none in the markup, so a stale or
+   missing stylesheet can never put it on screen. A display:none input is still
+   submitted with the form, which is what the trap needs. */
+.cform .hp{display:none}
+
+.contact-direct{font-size:14.5px;margin:0 0 20px}
+.addr{font-family:var(--mono);font-size:13.5px}
+
+/* The colophon is a flex row. Its items default to min-width:auto, so a long
+   unbreakable token (an email address) cannot shrink and pushes the row past
+   the sheet edge. This lets them shrink and wrap instead. */
+.colophon>*{min-width:0}
+.colophon .legallinks{overflow-wrap:anywhere}

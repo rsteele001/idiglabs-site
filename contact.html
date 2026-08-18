@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact — iDigLabs</title>
-<meta name="description" content="Contact iDigLabs about the Old School Series, the Discovery Series, or a licence key.">
+<meta name="description" content="Contact iDigLabs about the Old School Series, the Discovery Series, or a license key.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css">
+<!-- Versioned: /assets/* is served with max-age=3600, so without this a browser
+     that cached site.css before the form styles existed keeps serving the old
+     copy for an hour and the form renders with browser defaults. -->
+<link rel="stylesheet" href="/assets/site.css?v=2">
 </head>
 <body>
 <div class="sheet">
@@ -51,39 +54,41 @@
            served as static HTML rather than rendered by a framework. -->
       <input type="hidden" name="form-name" value="contact">
 
-      <!-- Honeypot. A human never sees this; a bot that fills it is discarded. -->
-      <p class="hp">
+      <!-- Honeypot. A human never sees this; a bot that fills it is discarded.
+           The inline style is deliberate belt-and-braces: it stays hidden even
+           if the stylesheet is stale or fails to load. -->
+      <p class="hp" style="display:none" aria-hidden="true">
         <label>Do not fill this in <input name="bot-field" tabindex="-1" autocomplete="off"></label>
       </p>
 
       <div class="row">
-        <label for="cf-name">Your name</label>
+        <label class="lbl" for="cf-name">Your name</label>
         <input id="cf-name" name="name" type="text" autocomplete="name" required>
       </div>
 
       <div class="row">
-        <label for="cf-email">Email</label>
+        <label class="lbl" for="cf-email">Email</label>
         <input id="cf-email" name="email" type="email" autocomplete="email" required>
       </div>
 
       <div class="row">
-        <label for="cf-subject">Subject</label>
+        <label class="lbl" for="cf-subject">Subject</label>
         <select id="cf-subject" name="subject" required>
           <option value="Old School">Old School</option>
           <option value="Discovery Series">Discovery Series</option>
-          <option value="Licence key">Licence key</option>
+          <option value="License key">License key</option>
           <option value="Other">Other</option>
         </select>
       </div>
 
       <div class="row">
-        <label for="cf-message">Message</label>
+        <label class="lbl" for="cf-message">Message</label>
         <textarea id="cf-message" name="message" required></textarea>
       </div>
 
       <div class="actions">
         <button class="buy" type="submit">Send</button>
-        <span class="fine">If you are writing about a licence key, include the email
+        <span class="fine">If you are writing about a license key, include the email
         address you bought with — that is what we search on.</span>
       </div>
     </form>
@@ -100,8 +105,8 @@
     </div>
     <div class="band"><span>iDigLabs</span></div>
     <div class="colophon">
-      <span>© 2026 Ron Steele, trading as iDigLabs. Notarised under Developer ID.</span>
-      <span class="legallinks"><a href="/legal/terms.html">Terms</a><a href="/legal/refunds.html">Refunds</a><a href="/legal/privacy.html">Privacy</a><a href="/contact.html">Contact</a> <span class="addr">idiglabs@gmail.com</span></span>
+      <span>© 2026 Ron Steele, trading as iDigLabs. Notarized under Developer ID.</span>
+      <span class="legallinks"><a href="/legal/terms.html">Terms</a><a href="/legal/refunds.html">Refunds</a><a href="/legal/privacy.html">Privacy</a><a href="/contact.html">Contact</a></span>
     </div>
   </footer>
 </div>

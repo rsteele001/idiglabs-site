@@ -31,7 +31,7 @@ git branch -M main
 ```
 
 Create an empty repo at github.com/new named `idiglabs-site`. **Do not**
-let it add a README, .gitignore, or licence — the repo must be empty or
+let it add a README, .gitignore, or license — the repo must be empty or
 the first push will conflict. Then:
 
 ```bash
