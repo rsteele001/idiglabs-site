@@ -21,7 +21,7 @@ dig +short MX idiglabs.com
 
 ## 2. Push to GitHub
 
-From the folder containing `index.html`:
+From the repo root (the folder containing `netlify.toml` and `public/`):
 
 ```bash
 git init
@@ -45,7 +45,7 @@ git push -u origin main
 
 1. Netlify → **Add new site → Import an existing project → GitHub**
 2. Authorise, pick `idiglabs-site`
-3. Build command: **leave empty**. Publish directory: **`.`**
+3. Build command: **leave empty**. Publish directory: **`public`**
    (`netlify.toml` already sets both — just confirm it matches.)
 4. Deploy
 

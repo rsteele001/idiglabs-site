@@ -5,20 +5,24 @@ Context for Claude Code working in this repo.
 ## What this is
 
 The iDigLabs storefront. Static HTML, no build step, no framework, no
-dependencies. Deployed to Netlify from the `main` branch of GitHub.
-Pushing to `main` deploys. There is nothing to compile.
+dependencies. Deployed to Netlify with the CLI (`netlify deploy --prod`);
+the Netlify project is not connected to GitHub, so pushing does not
+deploy. There is nothing to compile.
 
 ## Architecture
 
-```
-index.html          LIVE — the free Old School rack. This is the whole site.
-404.html            Branded error page
-netlify.toml        Redirects, headers, staged-page notes
-robots.txt          Blocks /_staged/ from crawlers
-assets/site.css     All styling. CSS variables at the top.
-assets/site.js      All data and all behaviour.
+Only `public/` is published. Anything at the repo root (this file,
+DEPLOY.md, netlify.toml, _staged/) never reaches the site.
 
-_staged/            NOT LIVE. Finished pages held back for staggered launch.
+```
+netlify.toml               Publish dir, redirects, headers, staged-page notes
+public/index.html          LIVE — the free Old School rack. This is the whole site.
+public/404.html            Branded error page
+public/robots.txt          Blocks /_staged/ from crawlers
+public/assets/site.css     All styling. CSS variables at the top.
+public/assets/site.js      All data and all behaviour.
+
+_staged/            NOT LIVE, NOT PUBLISHED. Finished pages held back for staggered launch.
   home-full.html      The original four-department storefront homepage
   instruments.html    7 synths + Discovery Series bundle
   plugins.html        4 processors
@@ -38,11 +42,11 @@ staged pages unless explicitly asked.
 
 **To launch a department:**
 
-1. `git mv _staged/instruments.html .`
-2. Add its nav link back to `index.html` (a `.seg` nav block — see
+1. `git mv _staged/instruments.html public/`
+2. Add its nav link back to `public/index.html` (a `.seg` nav block — see
    `_staged/home-full.html` for the markup)
 3. Remove that page's note from `netlify.toml`
-4. Add its URL to `sitemap.xml`
+4. Add its URL to `public/sitemap.xml`
 5. Confirm every `PRODUCTS[].url` on that page is a real Payhip
    checkout link, not `"#"`
 
@@ -51,7 +55,7 @@ moment they are moved back.
 
 ## The one rule
 
-**Product content lives in `assets/site.js`, not in the HTML.** The
+**Product content lives in `public/assets/site.js`, not in the HTML.** The
 `PRODUCTS`, `FAMILIES`, and `OLDSCHOOL` arrays at the top of that file
 are the single source of truth. Renderers build the DOM from them. Never
 hard-code a product name, price, or description into an HTML file.

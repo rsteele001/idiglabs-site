@@ -1,5 +1,7 @@
+# Only public/ is published. Everything at the repo root — CLAUDE.md,
+# DEPLOY.md, this file, _staged/ — stays out of the deploy entirely.
 [build]
-  publish = "."
+  publish = "public"
   command = ""
 
 # Canonical host
@@ -47,8 +49,8 @@
 
 # ---------------------------------------------------------------
 # STAGED PAGES — not live yet.
-# To launch a department: move the file from _staged/ back to the
-# repo root, add its nav link, and delete its block below.
+# To launch a department: move the file from _staged/ into
+# public/, add its nav link, and delete its block below.
 #   /instruments.html   _staged/instruments.html
 #   /plugins.html       _staged/plugins.html
 #   /software.html      _staged/software.html
