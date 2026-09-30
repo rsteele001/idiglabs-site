@@ -47,6 +47,21 @@
   to = "/contact.html"
   status = 301
 
+# Buy links — the apps' Buy buttons open these, so no store URL is compiled
+# into an app (release.sh refuses one). 302, not 301: a browser must not
+# cache the store page, so the target can change without an app update.
+[[redirects]]
+  from = "/buy/lost-and-found"
+  to = "https://payhip.com/b/CJRxo"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/tag-and-find"
+  to = "https://payhip.com/b/EorY0"
+  status = 302
+  force = true
+
 # ---------------------------------------------------------------
 # STAGED PAGES — not live yet.
 # To launch a department: move the file from _staged/ into
