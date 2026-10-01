@@ -62,6 +62,36 @@
   status = 302
   force = true
 
+[[redirects]]
+  from = "/buy/bind"
+  to = "https://payhip.com/b/rmXT7"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/kaleidoscope"
+  to = "https://payhip.com/b/dUwPZ"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/pulsar-6"
+  to = "https://payhip.com/b/6rp4n"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/raven"
+  to = "https://payhip.com/b/QaVg8"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/tekno"
+  to = "https://payhip.com/b/dN09K"
+  status = 302
+  force = true
+
 # ---------------------------------------------------------------
 # STAGED PAGES — not live yet.
 # To launch a department: move the file from _staged/ into
