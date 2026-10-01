@@ -129,6 +129,19 @@
   status = 302
   force = true
 
+# LUCY, AXEL and TRIXIE share the Discovery Series page.
+[[redirects]]
+  from = "/buy/discovery"
+  to = "https://payhip.com/b/j4nY8"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/acid-mono"
+  to = "https://payhip.com/b/JPT0N"
+  status = 302
+  force = true
+
 # DREAM STATE MOTION and DREAM STATE VOID share one page.
 [[redirects]]
   from = "/buy/dream-state"
