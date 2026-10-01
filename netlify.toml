@@ -92,6 +92,50 @@
   status = 302
   force = true
 
+# SHATTER and SHATTER FX share one page.
+[[redirects]]
+  from = "/buy/shatter"
+  to = "https://payhip.com/b/jryGo"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/polypop"
+  to = "https://payhip.com/b/g3xl9"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/super-stack"
+  to = "https://payhip.com/b/l0J16"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/drumtool"
+  to = "https://payhip.com/b/ovEN8"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/cinch"
+  to = "https://payhip.com/b/ED9YO"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/buy/haul"
+  to = "https://payhip.com/b/hpcY2"
+  status = 302
+  force = true
+
+# DREAM STATE MOTION and DREAM STATE VOID share one page.
+[[redirects]]
+  from = "/buy/dream-state"
+  to = "https://payhip.com/b/opyr6"
+  status = 302
+  force = true
+
 # ---------------------------------------------------------------
 # STAGED PAGES — not live yet.
 # To launch a department: move the file from _staged/ into
