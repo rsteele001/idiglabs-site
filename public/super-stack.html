@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Product page shell. Everything — title, name, price, buttons, footer —
+     comes from PRODUCTS in site.js, keyed by data-slug below. -->
+<title>Super Stack — iDigLabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=3">
+</head>
+<body>
+<div class="sheet">
+
+  <header class="pad">
+    <div class="mast">
+      <a class="brandmark" href="/"><i class="dot"></i><span>iDigLabs</span></a>
+      <div class="mast-r">
+        <h1 class="wordmark" id="wordmark"></h1>
+        <div class="lbl mast-sub" id="mastsub"></div>
+      </div>
+    </div>
+    <nav class="navbar" aria-label="Departments">
+      <div class="seg">
+        <a href="/">Home</a>
+        <a href="/instruments.html" data-group="instruments">Instruments</a>
+        <a href="/plugins.html" data-group="plugins">Plugins</a>
+        <a href="/software.html" data-group="software">Software</a>
+        <a href="/oldschool.html">Old School</a>
+        <a href="/all-access.html">All Access</a>
+      </div>
+    </nav>
+    <div class="rule-double"></div>
+  </header>
+
+  <section class="pad prodpage" id="product" data-slug="super-stack"></section>
+
+  <footer>
+    <div class="band"><span>iDigLabs</span></div>
+    <div class="colophon">
+      <span>© 2026 Ron Steele, trading as iDigLabs. Notarized under Developer ID. Licenses issued through Payhip.</span>
+      <span class="legallinks"><a href="/legal/terms.html">Terms</a><a href="/legal/refunds.html">Refunds</a><a href="/legal/privacy.html">Privacy</a><a href="/how.html">How it works</a><a href="/contact.html">Contact</a></span>
+    </div>
+  </footer>
+</div>
+
+<script src="/assets/site.js?v=4"></script>
+<script>renderProduct("product");wireCheckout();</script>
+</body>
+</html>

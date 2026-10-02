@@ -1,83 +1,122 @@
 /* ============================================================
    iDigLabs — shared data + renderers
-   EDIT ONLY THE PRODUCTS ARRAY. Everything else is plumbing.
-   price + url are PLACEHOLDERS until real Payhip links land.
-   group: "instruments" | "plugins" | "software"
-   status: "" | "new" | "soon"
-   art: transformer | ladder | wave | fm | chain | stack | folder | tag | disc
+   EDIT THE DATA BLOCK BELOW. Everything after it is plumbing.
+
+   Pricing: no sales, ever. The price is the price.
+
+   slug    — the product page is /<slug>.html, Buy is /buy/<slug>
+             (a netlify.toml redirect to Payhip). Never a store URL here.
+   group   — "instruments" | "plugins" | "software". Decides the dept page.
+   status  — "" | "new" | "soon" | "free"
+   app     — true for the macOS apps (footer says app, not AU/VST3)
+   macos   — minimum macOS shown in the footer
+   includes— optional: what one purchase contains
+   keyNote — optional extra footer line
+   video   — optional YouTube ID. Shows a click-to-play facade above the
+             description on the product page. Omit it and nothing renders.
+   shots   — optional array of image paths, e.g.
+             ["/media/shatter/shatter-1.png"]. A row of bordered plates
+             below the description. Omit it or leave it [] and nothing
+             renders.
+   copy    — department-plate blurb. "" renders a marked TODO.
+             The product page description is always a marked TODO
+             until a `description` field is added.
+   art     — transformer | ladder | wave | fm | chain | stack | folder | tag
    ============================================================ */
+
+/* Windows builds. Flip to true to show the Windows footer and the
+   SmartScreen install note on every plug-in product page. Apps stay
+   Mac-only regardless. */
+const WINDOWS = false;
+
+const TRIALS_URL = "/trials";        // pending redirect — see netlify.toml
+
+const ALL_ACCESS = {
+  ref:"IDL-AA1", price:233, url:"/buy/all-access",   // pending redirect
+  head:"Every iDigLabs product. About $15 each.",
+  // {SEPARATE} is replaced at render with the sum of every paid PRODUCTS
+  // price, so a price change can never leave this line stale.
+  line:"{SEPARATE} bought separately. Real price, every day, no countdown.",
+  scope:"All plug-ins and both apps. One-time."
+};
 
 const PRODUCTS = [
 
-  /* ---------------- INSTRUMENTS ---------------- */
-  { group:"instruments", ref:"IDL-201", name:"Pulsar-6", art:"wave", status:"",
-    kind:"polyphonic synthesiser · six voices", price:69, url:"#",
-    copy:"Six voices and an SSM-style low-pass, plus three things the original never had: <b>Move</b> for tempo-locked per-parameter drift, <b>Pump</b> for triggered patterns locked to host position, <b>Spread</b> for width that survives a fold to mono." },
+  /* ---------------- $55 ---------------- */
+  { slug:"shatter", group:"instruments", ref:"IDL-208", name:"Shatter", art:"wave", status:"",
+    kind:"spectral resynthesizer · instrument + FX insert", price:55, macos:"11",
+    includes:["Shatter","Shatter FX"], copy:"" },
 
-  { group:"instruments", ref:"IDL-202", name:"Kaleidoscope", art:"stack", status:"soon",
-    kind:"wavetable synthesiser", price:69, url:"#",
-    copy:"Five tables, 128 frames deep, ten mip levels so the top octave stays clean. <b>Table</b>, <b>Shuffle</b> and <b>Scan</b> are the whole interface. Built on the Pulsar-6 voice, so the filter and the effects are the ones you already know." },
-
-  { group:"instruments", ref:"IDL-203", name:"Raven", art:"ladder", status:"",
-    kind:"monophonic lead · bass music", price:49, url:"#",
-    copy:"Four corners — Reese, screech, growl, mangle — and an XY puck to sit anywhere between them. Hard resonance, four-times oversampled, a wobble LFO phase-locked to the host, and a sixteen-step gate you draw yourself." },
-
-  { group:"instruments", ref:"IDL-204", name:"Lucy", art:"wave", status:"", family:"discovery",
-    kind:"virtual-analog · discovery instrument", price:49, url:"#",
-    copy:"No exposed envelopes. Three macros — <b>Prism</b>, <b>Kaleidoscope</b>, <b>Cellophane</b> — and a <b>Diamonds</b> button that throws the whole patch. Twist until you love it, then save. That is the entire method." },
-
-  { group:"instruments", ref:"IDL-205", name:"Tekno", art:"ladder", status:"",
-    kind:"monophonic bass", price:39, url:"#",
-    copy:"A four-pole ladder, a sub that stays under the kick, and glide that behaves at the bottom of the keyboard. One job. It has no randomiser and does not need one." },
-
-  { group:"instruments", ref:"IDL-206", name:"Axel", art:"fm", status:"", family:"discovery",
-    kind:"frequency modulation · dark", price:39, url:"#",
-    copy:"Metal, wood, and the low end that comes with them. <b>Forge</b> is the soft-saturation stage the whole catalog is built on — this is where it first shipped." },
-
-  { group:"instruments", ref:"IDL-207", name:"Trixie", art:"fm", status:"", family:"discovery",
-    kind:"frequency modulation · glassy", price:39, url:"#",
-    copy:"Bells, keys, and air. The other side of the same engine as Axel, voiced upward instead of down. Two units, one architecture, no overlap." },
-
-  /* ---------------- PLUGINS (processors) ---------------- */
-  { group:"plugins", ref:"IDL-101", name:"Brick", art:"transformer", status:"new",
-    kind:"transformer · equivalent circuit · type BV-1", price:49, url:"#",
-    copy:"Nickel or steel, and the whole network hanging off it — leakage inductance, magnetising inductance, core loss, winding capacitance, source and load impedance. Drive it and it behaves like iron, not like a curve someone drew." },
-
-  { group:"plugins", ref:"IDL-102", name:"Matrix:Endgame", art:"chain", status:"",
-    kind:"master bus · four stages", price:59, url:"#",
-    copy:"Saturation, glue, width, ceiling — in that order, because that is the order that works. Three saturation profiles at stage three. The last plugin on the chain and the last decision you make." },
-
-  { group:"plugins", ref:"IDL-103", name:"Trilogy", art:"chain", status:"",
-    kind:"effects · three modes", price:39, url:"#",
-    copy:"<b>Cellophane</b> puts a sound behind glass. <b>Tangerine</b> widens it without breaking mono. <b>Swirl</b> moves it. Three modes, one window, no menu diving." },
-
-  { group:"plugins", ref:"IDL-104", name:"Old School", art:"stack", status:"free",
-    kind:"collection · ten units · free", price:0, url:"oldschool.html",
-    copy:"Modeling the boxes is the easy half. What nobody models is the wire between them — transformers loading the input, cable capacitance rolling the top, one stage driven hot into the next. All ten built as one chain. <b>Free, with a perpetual license. No trial, no expiry, no catch.</b>" },
-
-  /* ---------------- UTILITY SOFTWARE ---------------- */
-  { group:"software", ref:"IDL-301", name:"Lost &amp; Found", art:"folder", status:"",
-    kind:"macOS app · Kontakt library browser", price:39, url:"#",
-    copy:"Finds every Kontakt library on every drive, including the ones the installer lost, and sorts them by the vendor who actually made them. Drag in anything the scan missed and it stays put. No account, no catalog, no storefront." },
-
-  { group:"software", ref:"IDL-302", name:"Tag &amp; Find", art:"tag", status:"",
-    kind:"macOS app · audio file browser", price:39, url:"#",
+  { slug:"tag-and-find", group:"software", ref:"IDL-302", name:"Tag &amp; Find", art:"tag", status:"",
+    kind:"macOS app · audio file browser", price:55, app:true, macos:"13",
     copy:"Your tags, not somebody's metadata scheme. Waveform preview, drag straight into the session, and folders that reconcile themselves when you move a drive. Seventy thousand files and it still opens instantly." },
 
-  { group:"software", ref:"IDL-303", name:"Scan and Clean", art:"disc", status:"soon",
-    kind:"macOS app · drive maintenance", price:29, url:"#",
-    copy:"An audio-aware cleaner that knows the difference between a cache file and a session render. Nothing is deleted outright — it goes to the <b>Grave-Yard</b> first, and comes back if you were wrong." }
+  { slug:"lost-and-found", group:"software", ref:"IDL-301", name:"Lost &amp; Found", art:"folder", status:"",
+    kind:"macOS app · Kontakt library browser", price:55, app:true, macos:"13.5",
+    copy:"Finds every Kontakt library on every drive, including the ones the installer lost, and sorts them by the vendor who actually made them. Drag in anything the scan missed and it stays put. No account, no catalog, no storefront." },
+
+  /* ---------------- $34 ---------------- */
+  /* Order within a tier: instruments first, then effects. */
+  { slug:"super-stack", group:"instruments", ref:"IDL-210", name:"Super Stack", art:"stack", status:"",
+    kind:"layered synth rack", price:34, macos:"11", copy:"" },
+
+  { slug:"polypop", group:"instruments", ref:"IDL-209", name:"PolyPop", art:"wave", status:"",
+    kind:"polyphonic synthesizer", price:34, macos:"11", copy:"" },
+
+  { slug:"acid-mono", group:"instruments", ref:"IDL-211", name:"Acid Mono", art:"ladder", status:"",
+    kind:"monophonic synthesizer · acid + lead", price:34, macos:"11", copy:"" },
+
+  { slug:"discovery", group:"instruments", ref:"IDL-B01", name:"Discovery Series", art:"fm", status:"",
+    kind:"three instruments · one architecture", price:34, macos:"11",
+    includes:["Lucy","Axel","Trixie"],
+    copy:"Same voice, three temperaments. No exposed envelopes on any of them — the envelope is baked into the category you pick, so there is nothing to dial in before you hear something. Macros, a randomizer, and a save button. <b>Lucy</b> is the analog end, <b>Axel</b> the dark FM, <b>Trixie</b> the glass. Learn one and you have learned all three." },
+
+  { slug:"kaleidoscope", group:"instruments", ref:"IDL-202", name:"Kaleidoscope", art:"stack", status:"",
+    kind:"wavetable synthesizer", price:34, macos:"11",
+    copy:"Five tables, 128 frames deep, ten mip levels so the top octave stays clean. <b>Table</b>, <b>Shuffle</b> and <b>Scan</b> are the whole interface. Built on the Pulsar-6 voice, so the filter and the effects are the ones you already know." },
+
+  { slug:"pulsar-6", group:"instruments", ref:"IDL-201", name:"Pulsar-6", art:"wave", status:"",
+    kind:"polyphonic synthesizer · six voices", price:34, macos:"11",
+    copy:"Six voices and a ladder low-pass, plus three things a vintage poly never had: <b>Move</b> for tempo-locked per-parameter drift, <b>Pump</b> for triggered patterns locked to host position, <b>Spread</b> for width that survives a fold to mono." },
+
+  { slug:"raven", group:"instruments", ref:"IDL-203", name:"Raven", art:"ladder", status:"",
+    kind:"monophonic lead · bass music", price:34, macos:"11",
+    copy:"Four corners — Reese, screech, growl, mangle — and an XY puck to sit anywhere between them. Hard resonance, four-times oversampled, a wobble LFO phase-locked to the host, and a sixteen-step gate you draw yourself." },
+
+  { slug:"drumtool", group:"instruments", ref:"IDL-212", name:"Drumtool", art:"stack", status:"",
+    kind:"drum instrument", price:34, macos:"11", copy:"" },
+
+  { slug:"dream-state", group:"plugins", ref:"IDL-105", name:"Dream State", art:"chain", status:"",
+    kind:"modulation + reverb · two plug-ins", price:34, macos:"11",
+    includes:["Dream State Motion","Dream State Void"], keyNote:"One key unlocks both.", copy:"" },
+
+  { slug:"haul", group:"plugins", ref:"IDL-108", name:"Haul", art:"transformer", status:"",
+    kind:"tape", price:34, macos:"11", copy:"" },
+
+  /* ---------------- $21 ---------------- */
+  { slug:"tekno", group:"instruments", ref:"IDL-205", name:"Tekno", art:"ladder", status:"",
+    kind:"monophonic bass", price:21, macos:"11",
+    copy:"A four-pole ladder, a sub that stays under the kick, and glide that behaves at the bottom of the keyboard. One job. It has no randomizer and does not need one." },
+
+  { slug:"bind", group:"plugins", ref:"IDL-106", name:"Bind", art:"transformer", status:"",
+    kind:"stereo bus compressor", price:21, macos:"11", copy:"" },
+
+  { slug:"cinch", group:"plugins", ref:"IDL-107", name:"Cinch", art:"chain", status:"",
+    kind:"drum channel strip · insert", price:21, macos:"11", copy:"" },
+
+  /* ---------------- FREE ---------------- */
+  { slug:"oldschool", group:"plugins", ref:"IDL-104", name:"Old School Series", art:"stack", status:"free",
+    kind:"collection · ten plug-ins · free", price:0, macos:"11",
+    copy:"Modeling the boxes is the easy half. What nobody models is the wire between them — transformers loading the input, cable capacitance rolling the top, one stage driven hot into the next. All ten built as one chain. <b>Free, with a perpetual license. No trial, no expiry, no catch.</b>" }
 ];
 
 /* ============================================================
-   FAMILIES — bundles. members must match product `name` exactly.
+   FAMILIES — multi-product bundles. members must match product
+   `name` exactly. Empty: Discovery and Dream State are each sold
+   as one product now, so there is nothing to sum. The renderer
+   stays for the next real bundle.
    ============================================================ */
-const FAMILIES = [
-  { id:"discovery", group:"instruments", ref:"IDL-B01",
-    name:"Discovery Series", kind:"bundle · three instruments · one architecture",
-    members:["Lucy","Trixie","Axel"], price:99, url:"#",
-    copy:"Same voice, three temperaments. No exposed envelopes on any of them — the envelope is baked into the category you pick, so there is nothing to dial in before you hear something. Macros, a randomiser, and a save button. <b>Lucy</b> is the analog end, <b>Axel</b> the dark FM, <b>Trixie</b> the glass. Learn one and you have learned all three." }
-];
+const FAMILIES = [];
 
 /* ============================================================
    OLD SCHOOL SERIES — free, permanently
@@ -170,19 +209,25 @@ const ART = {
       <path d="M110 34 h74 v18 h-74 z" fill="#fff"/><circle cx="120" cy="43" r="3"/>
       <path d="M110 62 h96 v18 h-96 z" fill="#fff"/><circle cx="120" cy="71" r="3"/>
       <path d="M212 34 h66 v18 h-66 z" fill="#fff"/><circle cx="222" cy="43" r="3"/></g>
-    <g fill="#B0663F"><circle cx="222" cy="43" r="3"/></g>`,
-
-  disc:`<g fill="none" stroke="#211E1A" stroke-width="1.2">
-      <rect x="20" y="26" width="120" height="54" fill="#fff"/>
-      <path d="M20 44 H140 M20 62 H140"/><circle cx="34" cy="35" r="3"/><circle cx="34" cy="53" r="3"/><circle cx="34" cy="71" r="3"/>
-      <path d="M150 53 H186"/><path d="M178 47 L186 53 L178 59"/>
-      <path d="M198 30 h80 v50 h-80 z" fill="#fff"/><path d="M198 42 H278"/>
-      <path d="M212 56 l10 12 l10-12 M222 68 V52"/></g>
-    <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#B0663F"><text x="200" y="39">GRAVE-YARD</text></g>`
+    <g fill="#B0663F"><circle cx="222" cy="43" r="3"/></g>`
 };
 
 function plate(motif, vb){
   return '<svg viewBox="'+(vb||"0 0 300 96")+'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+(ART[motif]||"")+'</svg>';
+}
+
+/* ============================================================
+   Links — derived from slug, never stored
+   ============================================================ */
+const pageUrl = p => "/"+p.slug+".html";
+const buyUrl  = p => "/buy/"+p.slug;
+const paid    = () => PRODUCTS.filter(p=>p.status!=="free");
+
+/* A visibly marked placeholder. Search the source for "TODO" to find them. */
+function todo(what, draft){
+  return '<div class="todo"><span class="lbl">TODO · '+what+'</span>'+
+    (draft ? '<p><span class="lbl">previous site copy — review</span><br>'+draft+'</p>' : '')+
+  '</div>';
 }
 
 /* ============================================================
@@ -198,20 +243,154 @@ function renderUnits(group, hostId){
     const fam   = FAMILIES.find(f=>f.id===p.family);
     const band  = fam ? '<span class="fam">'+fam.name+'</span>' : '';
     const btn   = soon ? '<a class="buy" href="#" aria-disabled="true">Notify me</a>'
-                : free ? '<a class="buy" href="'+p.url+'">Claim free →</a>'
-                : '<a class="buy" href="'+p.url+'" data-ls>Buy — $'+p.price+'</a>';
+                : free ? '<a class="buy" href="'+pageUrl(p)+'">Claim free →</a>'
+                : '<span class="btns"><a class="buy ghost" href="'+pageUrl(p)+'">Details</a>'+
+                  '<a class="buy" href="'+buyUrl(p)+'" data-ls>Buy — $'+p.price+'</a></span>';
     const tagPrice = free ? '<span class="price">Free</span>'
                           : '<span class="price">$'+p.price+'</span>';
     const art = document.createElement("article");
     art.className = "unit";
     art.innerHTML =
-      '<div class="unit-plate">'+plate(p.art)+stamp+band+'</div>'+
-      '<div class="unit-top"><h3>'+p.name+'</h3><span class="ref">'+p.ref+'</span></div>'+
+      '<a class="unit-plate" href="'+pageUrl(p)+'">'+plate(p.art)+stamp+band+'</a>'+
+      '<div class="unit-top"><h3><a href="'+pageUrl(p)+'">'+p.name+'</a></h3><span class="ref">'+p.ref+'</span></div>'+
       '<div class="lbl kind">'+p.kind+'</div>'+
-      '<p>'+p.copy+'</p>'+
+      (p.copy ? '<p>'+p.copy+'</p>' : todo("description"))+
       '<div class="unit-foot">'+tagPrice+btn+'</div>';
     host.appendChild(art);
   });
+}
+
+/* Count and price range for a homepage department card. */
+function renderDeptMeta(){
+  document.querySelectorAll("[data-dept-meta]").forEach(n=>{
+    const g = n.dataset.deptMeta;
+    const ps = paid().filter(p=>p.group===g);
+    const lo = Math.min(...ps.map(p=>p.price)), hi = Math.max(...ps.map(p=>p.price));
+    const noun = g==="software" ? (ps.length===1?"app":"apps") : (ps.length===1?"product":"products");
+    n.textContent = ps.length+" "+noun+" · "+(lo===hi ? "$"+lo : "$"+lo+"–"+hi);
+  });
+}
+
+/* ============================================================
+   Product page footer — format, OS, trial, key.
+   WINDOWS (top of file) switches every plug-in to the Mac + PC
+   wording. Apps never change.
+   ============================================================ */
+function footerLines(p){
+  if(p.app) return [
+    "Native macOS app · macOS "+p.macos+" or later",
+    "30-day free trial. One key works on all your Macs."
+  ];
+  const lines = WINDOWS ? [
+    "AU and VST3 (Mac) · VST3 (Windows) · macOS 11+ · Windows 10/11 · One key works on all your computers, Mac and PC.",
+    "30-day free trial."
+  ] : [
+    "AU and VST3 · macOS "+p.macos+" or later · Apple Silicon and Intel",
+    "30-day free trial. One key works on all your Macs."
+  ];
+  if(p.keyNote) lines.push(p.keyNote);
+  return lines;
+}
+
+/* ============================================================
+   Product page — /<slug>.html carries only data-slug; the rest
+   is built from PRODUCTS.
+   ============================================================ */
+function renderProduct(hostId){
+  const host = document.getElementById(hostId);
+  if(!host) return;
+  const p = PRODUCTS.find(x=>x.slug===host.dataset.slug);
+  if(!p){ host.innerHTML = todo("unknown product slug: "+host.dataset.slug); return; }
+
+  document.title = p.name.replace("&amp;","&")+" — iDigLabs";
+  const wm = document.getElementById("wordmark"); if(wm) wm.innerHTML = p.name;
+  const ms = document.getElementById("mastsub"); if(ms) ms.innerHTML = p.kind;
+  const nav = document.querySelector('.seg a[data-group="'+p.group+'"]');
+  if(nav) nav.setAttribute("aria-current","page");
+
+  const incl = p.includes
+    ? '<dt>Includes</dt><dd>'+p.includes.join(" · ")+'</dd>' : '';
+  const fmt  = p.app ? "macOS app" : (WINDOWS ? "AU · VST3 (Mac) · VST3 (Win)" : "AU · VST3");
+  const os   = p.app ? "macOS "+p.macos+"+" : (WINDOWS ? "macOS 11+ · Windows 10/11" : "macOS "+p.macos+"+");
+  const winNote = (WINDOWS && !p.app)
+    ? '<p class="pnote"><b>Installing on Windows.</b> Windows may show ‘Windows protected your PC.’ Click More info, then Run anyway.</p>'
+    : '';
+
+  /* Media slots. Both render nothing at all when the field is absent or
+     empty — no placeholder, no gap. */
+  const video = p.video ? '<div class="vwrap pvideo" id="pvideo"></div>' : '';
+  const shots = (p.shots && p.shots.length)
+    ? '<div class="shots">'+p.shots.map((src,i)=>
+        '<a class="shot" href="'+src+'"><img src="'+src+'" alt="'+p.name+' screenshot '+(i+1)+'" loading="lazy"></a>'
+      ).join("")+'</div>'
+    : '';
+
+  host.innerHTML =
+    '<div class="prod">'+
+      '<div>'+
+        '<div class="unit-plate prod-plate">'+plate(p.art)+'</div>'+
+        video+
+        todo("product description", p.copy)+
+        shots+
+      '</div>'+
+      '<aside class="counter">'+
+        '<span class="lbl">price · one-time</span>'+
+        '<div class="counter-val"><b>$'+p.price+'</b><span>'+p.ref+'</span></div>'+
+        '<div class="btnrow">'+
+          '<a class="buy big" href="'+buyUrl(p)+'" data-ls>Buy — $'+p.price+'</a>'+
+          '<a class="buy big ghost" href="'+TRIALS_URL+'">Try</a>'+
+        '</div>'+
+        '<dl>'+incl+
+          '<dt>Format</dt><dd>'+fmt+'</dd>'+
+          '<dt>OS</dt><dd>'+os+'</dd>'+
+          (p.app ? '' : '<dt>Arch</dt><dd>Apple Silicon · Intel</dd>')+
+          '<dt>Trial</dt><dd>30 days · full</dd>'+
+          '<dt>License</dt><dd>perpetual</dd>'+
+        '</dl>'+
+      '</aside>'+
+    '</div>'+
+    '<div class="pfoot">'+footerLines(p).map(l=>'<p>'+l+'</p>').join("")+winNote+'</div>'+
+    '<a class="strip" href="/all-access.html">'+
+      '<span class="l"><b>All Access</b><span class="sub">'+ALL_ACCESS.head+' $'+ALL_ACCESS.price+' one-time.</span></span>'+
+      '<span class="go">See what’s in it →</span>'+
+    '</a>';
+
+  if(p.video) mountVideo("pvideo", p.video, p.name.replace("&amp;","&"));
+}
+
+/* ============================================================
+   ALL ACCESS — homepage block (compact) and /all-access.html (full)
+   The "separately" figure on the full page is summed, not typed.
+   ============================================================ */
+function renderAllAccess(hostId, full){
+  const host = document.getElementById(hostId);
+  if(!host) return;
+  const ps  = paid();
+  const sep = ps.reduce((s,p)=>s+p.price,0);
+  const list = full
+    ? '<ul class="aa-list">'+ps.map(p=>
+        '<li><a href="'+pageUrl(p)+'">'+p.name+'</a>'+
+        (p.includes ? ' <span class="ref">'+p.includes.join(" · ")+'</span>' : '')+
+        '<span class="price">$'+p.price+'</span></li>').join("")+
+      '<li class="aa-total"><span>Bought separately</span><span class="price">$'+sep+'</span></li>'+
+      '</ul>'
+    : '';
+  host.innerHTML =
+    '<div class="bundle aa">'+
+      '<div class="bundle-head"><span class="lbl">all access · '+ALL_ACCESS.scope+'</span><span class="ref">'+ALL_ACCESS.ref+'</span></div>'+
+      '<div class="bundle-text">'+
+        '<h3>'+ALL_ACCESS.head+'</h3>'+
+        '<p>'+ALL_ACCESS.line.replace("{SEPARATE}", "$"+sep)+'</p>'+
+        list+
+        '<div class="bundle-foot">'+
+          '<span><span class="price aa-price">$'+ALL_ACCESS.price+'</span> <span class="lbl">one-time</span></span>'+
+          '<span class="btns">'+
+            (full ? '' : '<a class="buy ghost" href="/all-access.html">What’s included</a>')+
+            '<a class="buy" href="'+ALL_ACCESS.url+'" data-ls>Get All Access — $'+ALL_ACCESS.price+'</a>'+
+          '</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
 }
 
 /* ---------- bundle renderer ---------- */
@@ -312,12 +491,13 @@ function wireCheckout(){
 
 /* Facade video — loads the iframe only on click, so YouTube sets no
    cookies and drops no ~1MB of script on people who never press play. */
-function mountVideo(hostId, id){
+function mountVideo(hostId, id, label){
   const host = document.getElementById(hostId);
   if(!host) return;
   const vid = id || PROMO_VIDEO;
+  const what = (label || "Old School Series")+" demo";
   host.innerHTML =
-    '<button class="vplay" aria-label="Play the Old School Series demo">'+
+    '<button class="vplay" aria-label="Play the '+what+'">'+
       '<img src="https://i.ytimg.com/vi/'+vid+'/maxresdefault.jpg" alt="" loading="lazy">'+
       '<span class="vbtn"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true">'+
         '<circle cx="22" cy="22" r="21" fill="none" stroke="#F0EBE1" stroke-width="1.5"/>'+
@@ -326,7 +506,7 @@ function mountVideo(hostId, id){
   host.querySelector(".vplay").addEventListener("click", ()=>{
     host.innerHTML =
       '<iframe src="https://www.youtube-nocookie.com/embed/'+vid+'?autoplay=1&rel=0&modestbranding=1" '+
-      'title="Old School Series demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; '+
+      'title="'+what+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; '+
       'encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
   });
 }
@@ -352,7 +532,7 @@ function mountVideo(hostId, id){
     { at:0.18, head:"Something moved.",    body:"Not enough to matter on a phone speaker. Keep going." },
     { at:0.42, head:"Now it has a shape.", body:"This is where most units are supposed to live. Yours does not have to." },
     { at:0.68, head:"Past polite.",        body:"The stage before it is being driven, and the wire in between knows it." },
-    { at:0.88, head:"True.",               body:"Save it. Name it something you will recognise at two in the morning." }
+    { at:0.88, head:"True.",               body:"Save it. Name it something you will recognize at two in the morning." }
   ];
 
   const NS = "http://www.w3.org/2000/svg";

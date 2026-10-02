@@ -15,43 +15,29 @@ Only `public/` is published. Anything at the repo root (this file,
 DEPLOY.md, netlify.toml, _staged/) never reaches the site.
 
 ```
-netlify.toml               Publish dir, redirects, headers, staged-page notes
-public/index.html          LIVE — the free Old School rack. This is the whole site.
+netlify.toml               Publish dir, redirects (/buy/<slug> → Payhip), headers
+public/index.html          Storefront home: All Access block, trials, departments
+public/all-access.html     ALL ACCESS — every paid product, one price
+public/instruments.html    Department pages — render PRODUCTS by group
+public/plugins.html
+public/software.html
+public/oldschool.html      The free Old School rack (was / until the catalog launched)
+public/<slug>.html         One product page per paid product — a shell with
+                           data-slug; renderProduct() builds the rest
 public/404.html            Branded error page
 public/robots.txt          Blocks /_staged/ from crawlers
 public/assets/site.css     All styling. CSS variables at the top.
 public/assets/site.js      All data and all behaviour.
-
-_staged/            NOT LIVE, NOT PUBLISHED. Finished pages held back for staggered launch.
-  home-full.html      The original four-department storefront homepage
-  instruments.html    7 synths + Discovery Series bundle
-  plugins.html        4 processors
-  software.html       3 macOS apps
 ```
 
-Every page is hand-written HTML sharing `assets/site.css` and
-`assets/site.js`. Pages differ only in their masthead, intro copy, spec
-table, and which render function they call at the bottom.
+Every page shares `assets/site.css` and `assets/site.js` (referenced with
+`?v=N` — bump N on every page when either changes; `/assets/*` is cached
+for an hour).
 
-## Launch strategy — read before adding pages
+## Pricing — no sales, ever
 
-The site is deliberately ONE page. Old School is a free ten-plugin
-giveaway; the paid catalog is released a product at a time so each drop
-is its own announcement. Do not restore the department nav or link the
-staged pages unless explicitly asked.
-
-**To launch a department:**
-
-1. `git mv _staged/instruments.html public/`
-2. Add its nav link back to `public/index.html` (a `.seg` nav block — see
-   `_staged/home-full.html` for the markup)
-3. Remove that page's note from `netlify.toml`
-4. Add its URL to `public/sitemap.xml`
-5. Confirm every `PRODUCTS[].url` on that page is a real Payhip
-   checkout link, not `"#"`
-
-The staged pages are finished and current. They render correctly the
-moment they are moved back.
+The price is the price. No discounts, no countdowns, no "was $X".
+ALL ACCESS is the only multi-product offer and its price is fixed.
 
 ## The one rule
 
@@ -65,12 +51,27 @@ hard-code a product name, price, or description into an HTML file.
 Append one object to `PRODUCTS`:
 
 ```js
-{ group:"plugins", ref:"IDL-105", name:"Anvil", art:"chain", status:"new",
-  kind:"compressor · feedback topology", price:49,
-  url:"https://idiglabs.payhip.com/checkout/buy/UUID",
+{ slug:"anvil", group:"plugins", ref:"IDL-109", name:"Anvil", art:"chain", status:"new",
+  kind:"compressor · feedback topology", price:21, macos:"11",
   copy:"One paragraph. <b>Bold</b> is allowed. No other tags." }
 ```
 
+then create `public/anvil.html` (copy any product shell, change
+`data-slug`), add a `/buy/anvil` redirect to `netlify.toml`, and add the
+page to `sitemap.xml`. No store URL ever goes in `site.js`.
+
+- `slug` — page is `/<slug>.html`, Buy is `/buy/<slug>`.
+- `app` — `true` for macOS apps; their footer never mentions AU/VST3 or Windows.
+- `includes` / `keyNote` — optional; what one purchase contains, and an
+  extra product-page footer line.
+- `video` — optional YouTube ID; a click-to-play facade above the
+  description. Omitted means nothing renders.
+- `shots` — optional array of image paths under `/media/<slug>/`; a row of
+  bordered plates below the description. Omitted or `[]` renders nothing.
+  Images: 1600 px wide, one aspect ratio per product (16:10 suits most
+  plug-in windows), PNG or WebP, under ~400 KB each.
+- `copy` — department-plate blurb. Empty renders a marked TODO. Product
+  pages always show a TODO description block for now.
 - `group` — `"instruments"` | `"plugins"` | `"software"`. Decides the page.
 - `status` — `""` | `"new"` | `"soon"` | `"free"`. Controls the plate stamp
   and the button. `"soon"` renders a dead "Notify me"; `"free"` renders
@@ -132,16 +133,21 @@ git push
 Netlify rebuilds in ~15 seconds. For anything risky, push a branch instead
 and use the Netlify deploy preview URL before merging.
 
+### Windows
+
+`WINDOWS` at the top of `site.js` is a single flag. `true` switches every
+plug-in product page to the Mac + PC footer and adds the SmartScreen
+install note. Apps are unaffected.
+
 ## Known open items
 
 - The ten `OLDSCHOOL[].kind` one-liners are placeholders and need rewriting.
-  These are the only words describing each plugin on the live page.
-- All `PRODUCTS[].url` values are still `"#"`. Each staged page needs real
-  Payhip checkout URLs before it can be moved out of `_staged/`.
-- BRICK appears at $49 in `PRODUCTS` and is also OS-01 in the free Old
-  School rack. Not visible while `plugins.html` is staged, but it must be
-  resolved before that page launches.
-- Discovery Series price ($99) is provisional.
+- Every product page shows a TODO description block; most department
+  plates do too. Search `site.js` and the dept pages for "TODO".
+- `/buy/all-access` and `/trials` are commented-out pending redirects in
+  `netlify.toml`. Until filled, those links 404.
+- Product names and pages must carry no hardware brand names (SSL,
+  Neve, Moog, 1176, etc.).
 
 ## Deploying right now
 

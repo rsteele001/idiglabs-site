@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://idiglabs.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://idiglabs.com/all-access.html</loc><priority>0.9</priority></url>
+  <url><loc>https://idiglabs.com/instruments.html</loc><priority>0.8</priority></url>
+  <url><loc>https://idiglabs.com/plugins.html</loc><priority>0.8</priority></url>
+  <url><loc>https://idiglabs.com/software.html</loc><priority>0.8</priority></url>
+  <url><loc>https://idiglabs.com/oldschool.html</loc><priority>0.8</priority></url>
+  <url><loc>https://idiglabs.com/shatter.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/tag-and-find.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/lost-and-found.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/polypop.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/super-stack.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/acid-mono.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/discovery.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/dream-state.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/bind.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/cinch.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/drumtool.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/haul.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/kaleidoscope.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/pulsar-6.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/raven.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/tekno.html</loc><priority>0.7</priority></url>
+  <url><loc>https://idiglabs.com/how.html</loc><priority>0.6</priority></url>
   <url><loc>https://idiglabs.com/contact.html</loc><priority>0.5</priority></url>
   <url><loc>https://idiglabs.com/legal/terms.html</loc><priority>0.3</priority></url>
   <url><loc>https://idiglabs.com/legal/refunds.html</loc><priority>0.3</priority></url>

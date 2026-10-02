@@ -11,20 +11,11 @@
   status = 301
   force = true
 
-# Short links — everything currently points at the front page.
+# Short links. Old School moved from / to /oldschool.html when the
+# catalog launched; /oldschool itself is served by pretty URLs.
 [[redirects]]
   from = "/free"
-  to = "/"
-  status = 301
-
-[[redirects]]
-  from = "/oldschool"
-  to = "/"
-  status = 301
-
-[[redirects]]
-  from = "/oldschool.html"
-  to = "/"
+  to = "/oldschool.html"
   status = 301
 
 [[redirects]]
@@ -45,6 +36,11 @@
 [[redirects]]
   from = "/contact"
   to = "/contact.html"
+  status = 301
+
+[[redirects]]
+  from = "/how"
+  to = "/how.html"
   status = 301
 
 # Buy links — the apps' Buy buttons open these, so no store URL is compiled
@@ -149,18 +145,26 @@
   status = 302
   force = true
 
-# ---------------------------------------------------------------
-# STAGED PAGES — not live yet.
-# To launch a department: move the file from _staged/ into
-# public/, add its nav link, and delete its block below.
-#   /instruments.html   _staged/instruments.html
-#   /plugins.html       _staged/plugins.html
-#   /software.html      _staged/software.html
-#   /home-full.html     _staged/home-full.html  (original storefront homepage)
-# Files inside _staged/ are excluded from crawling via robots.txt.
-# ---------------------------------------------------------------
+# ALL ACCESS. The homepage, /all-access.html and every product page
+# link here.
+[[redirects]]
+  from = "/buy/all-access"
+  to = "https://payhip.com/b/kTes0"
+  status = 302
+  force = true
 
-# Staged pages are not public. Remove this rule when a page launches.
+# FREE TRIALS. "Try them all free" on the homepage and "Try" on every
+# product page link here.
+[[redirects]]
+  from = "/trials"
+  to = "https://payhip.com/b/2Pxoi"
+  status = 302
+  force = true
+
+# ---------------------------------------------------------------
+# _staged/ is empty: every staged page launched with the catalog.
+# The rule stays so any old /_staged/ link lands somewhere.
+# ---------------------------------------------------------------
 [[redirects]]
   from = "/_staged/*"
   to = "/"
