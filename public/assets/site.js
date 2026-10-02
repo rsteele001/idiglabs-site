@@ -172,7 +172,7 @@ const PRODUCTS = [
 
   { slug:"kaleidoscope", group:"instruments", ref:"IDL-202", name:"Kaleidoscope", art:"stack", status:"",
     kind:"wavetable synthesizer", price:34, macos:"11",
-    copy:"43 wavetables in ten categories, or load your own. 128 frames deep, ten mip levels so the top octave stays clean. <b>Table</b>, <b>Shuffle</b> and <b>Scan</b> are the whole interface. Built on the Pulsar-6 voice, so the filter and the effects are the ones you already know.",
+    copy:"43 wavetables in ten categories, or load your own. <b>MOVE</b> gives eleven controls their own motion, <b>PUMP</b> retriggers in time with your track, and <b>VIBE TWIST</b> rolls new ideas with undo and A/B. Built on the Pulsar-6 voice, so the filter and the effects are the ones you already know.",
     description:{
       short:"A wavetable synth that never sits still.",
       body:"Kaleidoscope scans through 43 wavetables, or your own, while MOVE gives eleven controls their own motion. Pads shift and evolve through chorus, ping-pong delay, swirl and a deep space chain. VIBE TWIST rolls new ideas with undo and A/B.",

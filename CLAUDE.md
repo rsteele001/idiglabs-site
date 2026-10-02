@@ -163,19 +163,17 @@ never push `main` unless Ron has said to deploy.
 
 ## Licensing model — CURRENT STATE
 
-**As shipped today, plugins DO contact a license server.** Eleven products
-call `api.lemonsqueezy.com` on activation and re-validation. The legal pages
-describe this accurately.
+**The whole catalog is fully offline (confirmed by Ron, 2026-10-02).** No
+plug-in and no app contacts a license server. Keys are validated on the
+user's machine (`~/idiglabs/shared/Licensing`); the only URL any product
+holds is its Buy link, opened in the browser. Payhip's license verification
+API is not used. The privacy policy and terms say this as of 2026-10-02.
 
-The intended end state is no network calls at all: a key entered once,
-validated locally, with a 30-day Keychain-stored trial. Payhip's license
-verification API will NOT be used.
-
-**Until the plugins are actually stripped, do not add "no phone home" or
-"never contacts a server" language to any page.** That claim was published
-on 17 Aug 2026 and reverted the same day because it contradicted the
-shipped binaries. When the rewrite lands, the stronger language can return —
-privacy policy and terms must change in the same deploy.
+History: until September 2026, eleven plug-ins called `api.lemonsqueezy.com`
+on activation. A "never contacts a server" claim published on 17 Aug 2026 was
+reverted the same day because the binaries of the time contradicted it. If
+any future product adds a network call, the legal pages change in the same
+deploy.
 
 ## Payment provider
 
