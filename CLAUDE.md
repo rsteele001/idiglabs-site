@@ -135,9 +135,14 @@ and use the Netlify deploy preview URL before merging.
 
 ### Windows
 
-`WINDOWS` at the top of `site.js` is a single flag. `true` switches every
-plug-in product page to the Mac + PC footer and adds the SmartScreen
-install note. Apps are unaffected.
+`WINDOWS` near the top of `site.js` is the single switch, `false` until
+Windows ships. All Windows wording lives in `site.js` (`WIN_COPY`,
+`WIN_INSTALL`, product `keyNoteWin`); pages carry only empty `data-win`
+hooks that `applyWindows()` fills. `/windows.html` (install note) redirects
+home while the flag is off. Apps (`app:true`) never change.
+
+At launch: flip the flag, add `/windows.html` to `sitemap.xml`, bump
+`site.js?v=` on every page.
 
 ## Known open items
 
@@ -151,16 +156,9 @@ install note. Apps are unaffected.
 
 ## Deploying right now
 
-The GitHub account is flagged and cannot authorise third-party OAuth, so
-Netlify is NOT watching the repo. `git push` does not deploy. Publish with:
-
-```bash
-netlify deploy --prod
-```
-
-Keep committing and pushing to git regardless — the history matters. Once
-GitHub lifts the flag, link the repo in Netlify (Site settings → Build &
-deploy) and `git push` alone will deploy.
+**Since 2026-10-01 Netlify is linked to the repo: every push to `main`
+deploys to idiglabs.com.** Pushing IS deploying. Commit locally as asked, but
+never push `main` unless Ron has said to deploy.
 
 
 ## Licensing model — CURRENT STATE

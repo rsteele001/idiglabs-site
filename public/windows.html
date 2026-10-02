@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Product page shell. Everything — title, name, price, buttons, footer —
-     comes from PRODUCTS in site.js, keyed by data-slug below. -->
-<title>Kaleidoscope — iDigLabs</title>
+<!-- The steps come from WIN_INSTALL in site.js. While WINDOWS is false
+     this page sends visitors to the homepage. Not in sitemap.xml until
+     Windows ships. -->
+<title>Installing on Windows — iDigLabs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,8 +19,8 @@
     <div class="mast">
       <a class="brandmark" href="/"><i class="dot"></i><span>iDigLabs</span></a>
       <div class="mast-r">
-        <h1 class="wordmark" id="wordmark"></h1>
-        <div class="lbl mast-sub" id="mastsub"></div>
+        <h1 class="wordmark">windows</h1>
+        <div class="lbl mast-sub">installing the plug-ins · VST3</div>
       </div>
     </div>
     <nav class="navbar" aria-label="Departments">
@@ -35,18 +36,21 @@
     <div class="rule-double"></div>
   </header>
 
-  <section class="pad prodpage" id="product" data-slug="kaleidoscope"></section>
+  <section class="pad legal">
+    <h2>Installing on Windows</h2>
+    <div id="steps"></div>
+  </section>
 
   <footer>
     <div class="band"><span>iDigLabs</span></div>
     <div class="colophon">
-      <span>© 2026 Ron Steele, trading as iDigLabs. Notarized under Developer ID. Licenses issued through Payhip.</span>
+      <span>© 2026 Ron Steele, trading as iDigLabs. Licenses issued through Payhip.</span>
       <span class="legallinks"><a href="/legal/terms.html">Terms</a><a href="/legal/refunds.html">Refunds</a><a href="/legal/privacy.html">Privacy</a><a href="/how.html">How it works</a><a href="/contact.html">Contact</a></span>
     </div>
   </footer>
 </div>
 
 <script src="/assets/site.js?v=5"></script>
-<script>renderProduct("product");wireCheckout();</script>
+<script>renderWindowsInstall("steps");</script>
 </body>
 </html>

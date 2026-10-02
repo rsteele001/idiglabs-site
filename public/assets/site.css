@@ -249,17 +249,32 @@ a.unit-plate{display:block}
 .prod{display:grid;grid-template-columns:1.3fr 1fr;gap:34px;padding-top:24px;align-items:start}
 .prod-plate{margin-bottom:14px}
 .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.maconly{margin:0 0 12px;padding:8px 10px;border:1px solid var(--spot);font-size:13px;line-height:1.4;color:var(--ink)}
+.maconly b{font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:11px;color:var(--spot)}
 .pvideo{margin-bottom:14px}
 .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:2px;align-items:start}
 .shot{display:block;border:1px solid var(--ink);background:var(--panel);padding:6px}
 .shot img{display:block;width:100%;height:auto;border:1px solid var(--hair);background:#fff}
 .shot:hover{background:var(--spot-tint)}
 .shot:focus-visible{outline:2px solid var(--spot);outline-offset:2px}
+/* Description: the short line leads, then the paragraph, then the bullets. */
+.pdesc{margin:0 0 14px}
+.pdesc p{margin:0 0 12px;line-height:1.55}
+.pdesc .plead{font-size:16px;font-weight:500;line-height:1.5}
+.pdesc ul{margin:0;padding-left:20px}
+.pdesc li{line-height:1.6;margin-bottom:4px}
 .pfoot{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);margin-top:22px;padding:12px 0}
 .pfoot p{font-family:var(--mono);font-size:12px;margin:0 0 4px}
 .pfoot p:last-child{margin-bottom:0}
 .pfoot .pnote{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin-top:10px}
 .pfoot .pnote b{color:var(--ink);font-weight:500}
+
+/* ---------- Windows (shown only when WINDOWS is true in site.js) ---------- */
+.winline{margin:14px 0 0;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--spot)}
+.steps{margin:0 0 12px;padding-left:20px}
+.steps li{font-size:14.5px;line-height:1.6;margin-bottom:8px}
+.steps b{font-weight:500}
+.pfoot .pnote a{color:var(--spot)}
 
 /* ---------- ALL ACCESS ---------- */
 .aa .bundle-text h3{font-size:clamp(17px,3vw,24px);letter-spacing:.08em}
@@ -270,6 +285,7 @@ a.unit-plate{display:block}
 .aa-list a{color:var(--ink);text-decoration:none;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
 .aa-list a:hover{color:var(--spot)}
 .aa-total{font-weight:500}
+.aa-list .aa-group{padding-top:14px;border-bottom:1px solid var(--ink)}
 
 /* ---------- buttons ---------- */
 .buy{
@@ -316,9 +332,23 @@ a.unit-plate{display:block}
   .lede,.dept-intro{grid-template-columns:1fr;gap:22px}
   .method,.spec{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:16px}
 }
-@media (max-width:620px){
+/* The six-tab nav is ~710px wide. Below 820px it no longer fits inside the
+   sheet's padding, so it scrolls sideways instead of spilling off both edges. */
+@media (max-width:820px){
   .navbar{justify-content:flex-start;overflow-x:auto}
-  .seg a{padding:8px 14px;letter-spacing:.14em}
+}
+/* Below 620px the six tabs wrap to two rows of three, so a phone shows all of
+   them without swiping. Labels may break onto a second line inside a cell. */
+@media (max-width:620px){
+  .navbar{overflow-x:visible}
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
+  .seg a{
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:8px 6px;letter-spacing:.12em;white-space:normal;
+    border-bottom:1px solid var(--ink);
+  }
+  .seg a:nth-child(3n){border-right:0}
+  .seg a:nth-last-child(-n+3){border-bottom:0}
 }
 @media (max-width:560px){
   .pad{padding:0 20px}

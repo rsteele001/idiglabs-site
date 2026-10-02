@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/site.css?v=4">
 </head>
 <body>
 <div class="sheet">
@@ -27,11 +27,12 @@
         <a href="/instruments.html" data-group="instruments">Instruments</a>
         <a href="/plugins.html" data-group="plugins">Plugins</a>
         <a href="/software.html" data-group="software">Software</a>
-        <a href="/oldschool.html">Old School</a>
+        <a href="/oldschool.html">Old School — Free</a>
         <a href="/all-access.html">All Access</a>
       </div>
     </nav>
     <div class="rule-double"></div>
+    <p class="winline" data-win="banner" hidden></p>
     <a class="strip" href="/oldschool.html">
       <span class="l">
         <b>Old School</b>
@@ -47,7 +48,7 @@
     <div id="allaccess"></div>
     <div class="cta-bar">
       <a class="buy big ghost" href="/trials">Try them all free</a>
-      <p class="fine">Every product has a 30-day full trial. After that it keeps working, with a reminder.</p>
+      <p class="fine" data-win="trialsFine">Every product has a 30-day full trial. After that it keeps working, with a reminder.</p>
     </div>
   </section>
 
@@ -136,8 +137,8 @@
   <section class="pad lede">
     <div>
       <p class="drop">iDigLabs builds instruments, processors and utility software for people who have to deliver something on Monday. One room, one engineer, thirty years of sessions behind every default.</p>
-      <p>No subscription. You buy a license once and you keep it. One key works on all your Macs.</p>
-      <p>Plug-ins are AU and VST3, Apple Silicon and Intel, notarized under one Developer ID. Everything installs without an argument.</p>
+      <p data-win="ledeKey">No subscription. You buy a license once and you keep it. One key works on all your Macs.</p>
+      <p data-win="ledeFormats">Plug-ins are AU and VST3, Apple Silicon and Intel, notarized under one Developer ID. Everything installs without an argument.</p>
     </div>
     <div class="method">
       <div class="lbl">Method</div>
@@ -211,7 +212,7 @@
   </footer>
 </div>
 
-<script src="/assets/site.js?v=4"></script>
+<script src="/assets/site.js?v=5"></script>
 <script>
 document.querySelectorAll("[data-plate]").forEach(n=>{ n.innerHTML = plate(n.dataset.plate); });
 renderAllAccess("allaccess");

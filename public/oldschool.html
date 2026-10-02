@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=3">
+<link rel="stylesheet" href="/assets/site.css?v=4">
 </head>
 <body>
 <div class="sheet">
@@ -31,7 +31,7 @@
         <a href="/instruments.html" data-group="instruments">Instruments</a>
         <a href="/plugins.html" data-group="plugins">Plugins</a>
         <a href="/software.html" data-group="software">Software</a>
-        <a href="/oldschool.html" aria-current="page">Old School</a>
+        <a href="/oldschool.html" aria-current="page">Old School — Free</a>
         <a href="/all-access.html">All Access</a>
       </div>
     </nav>
@@ -52,9 +52,9 @@
       <dl>
         <dt>Term</dt><dd>perpetual</dd>
         <dt>Account</dt><dd>none</dd>
-        <dt>Format</dt><dd>AU · VST3</dd>
-        <dt>macOS</dt><dd>11+ universal</dd>
-        <dt>Installer</dt><dd>signed · notarized</dd>
+        <dt>Format</dt><dd data-win="osFormat">AU · VST3</dd>
+        <dt data-win="osLabel">macOS</dt><dd data-win="osOS">11+ universal</dd>
+        <dt>Installer</dt><dd data-win="osInstaller">signed · notarized</dd>
       </dl>
     </aside>
   </section>
@@ -97,9 +97,10 @@
       </div>
       <div>
         <h4>No account with us</h4>
-        <p>There is no key to issue and no account to create. Payhip handles the download, and after that the ten are simply installed on your Mac — no subscription, and nothing checking in while you work.</p>
+        <p data-win="osAccount">There is no key to issue and no account to create. Payhip handles the download, and after that the ten are simply installed on your Mac — no subscription, and nothing checking in while you work.</p>
       </div>
     </div>
+    <p class="fine" style="margin-top:16px" data-win="osWinNote" hidden></p>
     <p class="fine" style="margin-top:16px"><b>The one thing it costs is your email address.</b> Downloading puts you on the list. We write when there is a new product. Unsubscribe any time and keep everything.</p>
   </section>
 
@@ -143,7 +144,7 @@
   </footer>
 </div>
 
-<script src="/assets/site.js?v=4"></script>
+<script src="/assets/site.js?v=5"></script>
 <script>
   renderRack("rack");
   mountVideo("video");

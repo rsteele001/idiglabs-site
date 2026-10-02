@@ -11,7 +11,8 @@
    app     — true for the macOS apps (footer says app, not AU/VST3)
    macos   — minimum macOS shown in the footer
    includes— optional: what one purchase contains
-   keyNote — optional extra footer line
+   keyNote — optional extra footer line (keyNoteWin replaces it when
+             WINDOWS is true)
    video   — optional YouTube ID. Shows a click-to-play facade above the
              description on the product page. Omit it and nothing renders.
    shots   — optional array of image paths, e.g.
@@ -19,24 +20,93 @@
              below the description. Omit it or leave it [] and nothing
              renders.
    copy    — department-plate blurb. "" renders a marked TODO.
-             The product page description is always a marked TODO
-             until a `description` field is added.
+   description — product page copy: { short, body, points[], note? }.
+             short is the lead line, then the body paragraph, then the
+             points as bullets. note, if present, prints under the
+             footer. Absent renders a marked TODO.
    art     — transformer | ladder | wave | fm | chain | stack | folder | tag
    ============================================================ */
 
-/* Windows builds. Flip to true to show the Windows footer and the
-   SmartScreen install note on every plug-in product page. Apps stay
-   Mac-only regardless. */
+/* ============================================================
+   WINDOWS — the one switch. false until Windows has shipped.
+
+   true turns on, across the whole site:
+   - every plug-in product page: Mac + PC footer and spec, a link to
+     /windows.html; Dream State's "One key unlocks both, on Mac and PC."
+   - All Access: "Mac and Windows", plus the Mac-and-PC key line
+   - trial wording: plug-ins on Mac and Windows, apps on Mac
+   - homepage: "Now on Mac and Windows." near the top
+   - Old School, Instruments, Plugins, /how: Mac-only wording swapped
+     for Mac + PC wording via data-win hooks (see WIN_COPY)
+   - /windows.html: the install note. While false that page sends
+     visitors to the homepage.
+   The apps (app:true) stay Mac-only regardless.
+
+   All Windows wording lives in this file, never in the HTML, so the
+   pages carry only empty hooks. It is still readable by anyone who
+   opens site.js.
+   ============================================================ */
 const WINDOWS = false;
 
-const TRIALS_URL = "/trials";        // pending redirect — see netlify.toml
+/* Text for every data-win hook. applyWindows() swaps each hooked
+   element's content for its entry here, and un-hides empty hooks. */
+const WIN_COPY = {
+  banner:      "Now on Mac and Windows.",
+  trialsFine:  "Every product has a 30-day full trial: plug-ins on Mac and Windows, apps on Mac. After that it keeps working, with a reminder.",
+  osLabel:     "OS",
+  deptFormat:  "AU · VST3 (Mac) · VST3 (Win)",
+  deptOS:      "macOS 11+ · Windows 10/11 64-bit",
+  deptKey:     "one key · Mac and PC",
+  ledeKey:     "No subscription. You buy a license once and you keep it. One key works on all your computers, Mac and PC.",
+  ledeFormats: "Plug-ins are AU and VST3 on Mac, Apple Silicon and Intel, notarized under one Developer ID — and VST3 on Windows 10 or 11 (64-bit). The apps are Mac-only.",
+  howKeyHead:  "One key, Mac and PC",
+  howKeyText:  "One key works on all your computers, Mac and PC. Buy it once and keep it. There is no subscription. The apps are Mac-only.",
+  howSigned:   "Every Mac installer is signed with our Developer ID and notarized by Apple. Installing on Windows: <a href=\"/windows.html\">see the note</a>.",
+  osFormat:    "AU · VST3 (Mac) · VST3 (Win)",
+  osOS:        "macOS 11+ · Windows 10/11",
+  osInstaller: "Mac: signed · notarized",
+  osAccount:   "There is no key to issue and no account to create. Payhip handles the download, and after that the ten are simply installed on your computer — no subscription, and nothing checking in while you work.",
+  osWinNote:   "On Windows: <a href=\"/windows.html\">installing on Windows</a>."
+};
+
+const WIN_INSTALL = [
+  "Run the installer. Plug-ins install to <span class=\"addr\">C:\\Program Files\\Common Files\\VST3\\</span>.",
+  "Windows may show \u201cWindows protected your PC.\u201d Click <b>More info</b>, then <b>Run anyway</b>.",
+  "Rescan plug-ins in your DAW if they don't appear.",
+  "Enter the same key you use on your Mac."
+];
+
+function applyWindows(){
+  if(!WINDOWS) return;
+  document.documentElement.classList.add("windows");
+  document.querySelectorAll("[data-win]").forEach(n=>{
+    const t = WIN_COPY[n.dataset.win];
+    if(t === undefined) return;
+    n.innerHTML = t;
+    n.hidden = false;
+  });
+}
+
+/* /windows.html: the install note when WINDOWS, otherwise home. */
+function renderWindowsInstall(hostId){
+  const host = document.getElementById(hostId);
+  if(!host) return;
+  if(!WINDOWS){ location.replace("/"); return; }
+  host.innerHTML = '<ol class="steps">'+WIN_INSTALL.map(s=>'<li>'+s+'</li>').join("")+'</ol>';
+}
+
+const TRIALS_URL = "/trials";
 
 const ALL_ACCESS = {
-  ref:"IDL-AA1", price:233, url:"/buy/all-access",   // pending redirect
-  head:"Every iDigLabs product. About $15 each.",
-  // {SEPARATE} is replaced at render with the sum of every paid PRODUCTS
-  // price, so a price change can never leave this line stale.
-  line:"{SEPARATE} bought separately. Real price, every day, no countdown.",
+  ref:"IDL-AA1", price:233, url:"/buy/all-access",
+  head:"Every iDigLabs product, one key.",
+  // Computed at render, so a price or catalog change can never leave this
+  // line stale: {SEPARATE} = sum of every paid PRODUCTS price, {PRICE} =
+  // the All Access price, {COUNT} = number of paid products, {EACH} =
+  // {PRICE} / {COUNT} rounded to the dollar.
+  line:"{SEPARATE} of tools for {PRICE}. {COUNT} plugins and apps, about {EACH} each.",
+  body:"Every plugin and both apps with one key, on every Mac you own. Real price, every day, no countdown.",
+  fine:"Future products are separate purchases. No subscription, ever.",
   scope:"All plug-ins and both apps. One-time."
 };
 
@@ -45,64 +115,129 @@ const PRODUCTS = [
   /* ---------------- $55 ---------------- */
   { slug:"shatter", group:"instruments", ref:"IDL-208", name:"Shatter", art:"wave", status:"",
     kind:"spectral resynthesizer · instrument + FX insert", price:55, macos:"11",
-    includes:["Shatter","Shatter FX"], copy:"" },
+    includes:["Shatter","Shatter FX","Shatter standalone app"], copy:"",
+    description:{
+      short:"You already have the sound. You just haven't heard it yet.",
+      body:"Drop in any audio file, and Shatter turns it into a playable instrument across the keyboard. A door slam, a field recording, a vocal or a single note becomes a living wavetable you can play, twist and layer. Add a synth oscillator underneath to give textures a fundamental, and use TWIST to scatter coherent sound into something new. Includes Shatter FX for live processing or freeze, and a standalone app.",
+      points:["Drop any audio file, play it across the keyboard","TWIST macro, from coherent to scattered","Synth oscillator layer with its own octave control","Shatter FX insert, live or freeze","Standalone app, no DAW needed","Built for sound design: ambiences, environments, moods"] } },
 
   { slug:"tag-and-find", group:"software", ref:"IDL-302", name:"Tag &amp; Find", art:"tag", status:"",
     kind:"macOS app · audio file browser", price:55, app:true, macos:"13",
-    copy:"Your tags, not somebody's metadata scheme. Waveform preview, drag straight into the session, and folders that reconcile themselves when you move a drive. Seventy thousand files and it still opens instantly." },
+    copy:"Your tags, not somebody's metadata scheme. Waveform preview, drag straight into the session, and folders that reconcile themselves when you move a drive. Seventy thousand files and it still opens instantly.",
+    description:{
+      short:"Find the right sound effect fast, and drag it straight into your DAW.",
+      body:"Drag your sound effects folders into Tag &amp; Find, or choose them from your drives, and it builds a searchable library you can browse by category, tag, mark favorites in and group into projects. Preview instantly, then drag the sound straight into your session.",
+      points:["Drag in folders or pick them from any drive","Search your whole library in seconds","Drag sounds straight into your DAW","Categories, tags, favorites and projects","Inline audio preview","Runs entirely on your Mac: no account, no cloud, no subscription"] } },
 
   { slug:"lost-and-found", group:"software", ref:"IDL-301", name:"Lost &amp; Found", art:"folder", status:"",
     kind:"macOS app · Kontakt library browser", price:55, app:true, macos:"13.5",
-    copy:"Finds every Kontakt library on every drive, including the ones the installer lost, and sorts them by the vendor who actually made them. Drag in anything the scan missed and it stays put. No account, no catalog, no storefront." },
+    copy:"Finds every Kontakt library on every drive, including the ones the installer lost, and sorts them by the vendor who actually made them. Drag in anything the scan missed and it stays put. No account, no catalog, no storefront.",
+    description:{
+      short:"Find every Kontakt library on every drive, even the ones Kontakt forgot.",
+      body:"Lost &amp; Found scans your drives, finds every Kontakt library, and organizes them by vendor so you can see everything you own in one place.",
+      points:["Scans all connected drives","Finds libraries Kontakt has lost track of","Groups everything by vendor","Runs entirely on your Mac: no account, no cloud, no subscription"],
+      note:"Requires Full Disk Access (the app shows you how)." } },
 
   /* ---------------- $34 ---------------- */
   /* Order within a tier: instruments first, then effects. */
   { slug:"super-stack", group:"instruments", ref:"IDL-210", name:"Super Stack", art:"stack", status:"",
-    kind:"layered synth rack", price:34, macos:"11", copy:"" },
+    kind:"layered synth rack", price:34, macos:"11", copy:"",
+    description:{
+      short:"Four synth engines stacked for pads and motion.",
+      body:"Super Stack layers four engines into one instrument, built to do two things extremely well: lush pads and sounds that move. Master macros shape the whole stack at once, per-layer controls fine-tune each engine, and a full effects chain finishes it.",
+      points:["Four stacked engines","Master macros plus per-layer controls","Built-in FX chain","TWIST: re-roll the patch for instant new ideas"] } },
 
   { slug:"polypop", group:"instruments", ref:"IDL-209", name:"PolyPop", art:"wave", status:"",
-    kind:"polyphonic synthesizer", price:34, macos:"11", copy:"" },
+    kind:"polyphonic synthesizer", price:34, macos:"11", copy:"",
+    description:{
+      short:"A polyphonic lead synth with 1970s character.",
+      body:"PolyPop takes the lead voice from Acid Mono and makes it polyphonic: big, bright, retro leads with a fat parallel path for weight. A character tool that does one thing with attitude.",
+      points:["Polyphonic lead voice","Fat parallel signal path","Octave control, −2 to +2","Few knobs, no preset scrolling"] } },
 
   { slug:"acid-mono", group:"instruments", ref:"IDL-211", name:"Acid Mono", art:"ladder", status:"",
-    kind:"monophonic synthesizer · acid + lead", price:34, macos:"11", copy:"" },
+    kind:"monophonic synthesizer · acid + lead", price:34, macos:"11", copy:"",
+    description:{
+      short:"Acid bass with squelch, slide and grit.",
+      body:"A monophonic acid bass synth built for basslines that bite and leads that cut.",
+      points:["Monophonic acid voice with slide","Squelchy, resonant filter","Built for bass and cutting leads"] } },
 
   { slug:"discovery", group:"instruments", ref:"IDL-B01", name:"Discovery Series", art:"fm", status:"",
     kind:"three instruments · one architecture", price:34, macos:"11",
     includes:["Lucy","Axel","Trixie"],
-    copy:"Same voice, three temperaments. No exposed envelopes on any of them — the envelope is baked into the category you pick, so there is nothing to dial in before you hear something. Macros, a randomizer, and a save button. <b>Lucy</b> is the analog end, <b>Axel</b> the dark FM, <b>Trixie</b> the glass. Learn one and you have learned all three." },
+    copy:"Same voice, three temperaments. No exposed envelopes on any of them — the envelope is baked into the category you pick, so there is nothing to dial in before you hear something. Macros, a randomizer, and a save button. <b>Lucy</b> is the analog end, <b>Axel</b> the dark FM, <b>Trixie</b> the glass. Learn one and you have learned all three.",
+    description:{
+      short:"Three focused synths: Lucy, Axel and Trixie.",
+      body:"Three characterful synths in one package. Simple, fast and easy to get great results from, with one key that unlocks all three.",
+      points:["Lucy, Axel and Trixie","Simple controls, big character","One key unlocks all three"] } },
 
   { slug:"kaleidoscope", group:"instruments", ref:"IDL-202", name:"Kaleidoscope", art:"stack", status:"",
     kind:"wavetable synthesizer", price:34, macos:"11",
-    copy:"Five tables, 128 frames deep, ten mip levels so the top octave stays clean. <b>Table</b>, <b>Shuffle</b> and <b>Scan</b> are the whole interface. Built on the Pulsar-6 voice, so the filter and the effects are the ones you already know." },
+    copy:"43 wavetables in ten categories, or load your own. 128 frames deep, ten mip levels so the top octave stays clean. <b>Table</b>, <b>Shuffle</b> and <b>Scan</b> are the whole interface. Built on the Pulsar-6 voice, so the filter and the effects are the ones you already know.",
+    description:{
+      short:"A wavetable synth that never sits still.",
+      body:"Kaleidoscope scans through 43 wavetables, or your own, while MOVE gives eleven controls their own motion. Pads shift and evolve through chorus, ping-pong delay, swirl and a deep space chain. VIBE TWIST rolls new ideas with undo and A/B.",
+      points:["Two detuned wavetable oscillators plus sub, six voices","43 tables in 10 categories, or load your own","MOVE: built-in motion on 11 parameters","PUMP: tempo-synced rhythmic retrigger","20 presets"] } },
 
   { slug:"pulsar-6", group:"instruments", ref:"IDL-201", name:"Pulsar-6", art:"wave", status:"",
     kind:"polyphonic synthesizer · six voices", price:34, macos:"11",
-    copy:"Six voices and a ladder low-pass, plus three things a vintage poly never had: <b>Move</b> for tempo-locked per-parameter drift, <b>Pump</b> for triggered patterns locked to host position, <b>Spread</b> for width that survives a fold to mono." },
+    copy:"Six voices and a ladder low-pass, plus three things a vintage poly never had: <b>Move</b> for tempo-locked per-parameter drift, <b>Pump</b> for triggered patterns locked to host position, <b>Spread</b> for width that survives a fold to mono.",
+    description:{
+      short:"A six-voice analog-style polysynth.",
+      body:"Pulsar-6 morphs its oscillators from saw to square to pulse, into a warm 24 dB filter that holds its low end as you push resonance. Classic poly sounds with built-in movement and a deep effects chain.",
+      points:["Two detuned morphing oscillators plus sub, six voices","24 dB low-pass that keeps its bass","MOVE drift and PUMP rhythms","Chorus, delay, swirl and space","20 presets"] } },
 
   { slug:"raven", group:"instruments", ref:"IDL-203", name:"Raven", art:"ladder", status:"",
-    kind:"monophonic lead · bass music", price:34, macos:"11",
-    copy:"Four corners — Reese, screech, growl, mangle — and an XY puck to sit anywhere between them. Hard resonance, four-times oversampled, a wobble LFO phase-locked to the host, and a sixteen-step gate you draw yourself." },
+    kind:"leads and basses · mono or 8-voice poly", price:34, macos:"11",
+    copy:"Four corners — Reese, screech, growl, mangle — and an XY puck to sit anywhere between them. Hard resonance, four-times oversampled, a wobble LFO phase-locked to the host, and a sixteen-step gate you draw yourself.",
+    description:{
+      short:"Leads and basses that bite.",
+      body:"Raven stacks seven detuned oscillators per voice and morphs between four characters (REESE, SCREECH, GROWL and MANGLE) on an X/Y pad. Tempo-locked wobble and a drawable 16-step gate make it move with your track.",
+      points:["Seven-oscillator voice plus sub","X/Y morph between four sounds","WOBBLE and 16-step PULSATE gate, synced to your DAW","Mono or 8-voice poly, with glide","TWIST randomizer with locks"] } },
 
   { slug:"drumtool", group:"instruments", ref:"IDL-212", name:"Drumtool", art:"stack", status:"",
-    kind:"drum instrument", price:34, macos:"11", copy:"" },
+    kind:"drum instrument", price:34, macos:"11", copy:"",
+    description:{
+      short:"Audition drums already mix-ready.",
+      body:"Four channels (kick, snare and two toms), each with a full processing chain that stays put while you step through sources. You hear every kick already shaped and sitting in the mix, not raw.",
+      points:["Four channels: kick, snare, two toms","Processing holds while you swap sources","Separate outputs per channel plus a master bus","Master compressor"] } },
 
   { slug:"dream-state", group:"plugins", ref:"IDL-105", name:"Dream State", art:"chain", status:"",
     kind:"modulation + reverb · two plug-ins", price:34, macos:"11",
-    includes:["Dream State Motion","Dream State Void"], keyNote:"One key unlocks both.", copy:"" },
+    includes:["Dream State Motion","Dream State Void"], keyNote:"One key unlocks both.", keyNoteWin:"One key unlocks both, on Mac and PC.", copy:"",
+    description:{
+      short:"A delay and a reverb built for space.",
+      body:"Motion is a delay and modulation effect with rotary-speaker movement. Void is an outer-space reverb with four modes (VOID, ORBIT, NEBULA and EVENT HORIZON), tails up to 7 seconds, and tape delay ahead of the reverb.",
+      points:["Motion: delay and modulation, rotary movement","Void: four outer-space reverb modes, long tails","Tape delay into reverb","Use together or separately"] } },
 
   { slug:"haul", group:"plugins", ref:"IDL-108", name:"Haul", art:"transformer", status:"",
-    kind:"tape", price:34, macos:"11", copy:"" },
+    kind:"tape", price:34, macos:"11", copy:"",
+    description:{
+      short:"The dark, warm cloud of half-inch tape.",
+      body:"A half-inch two-track tape machine: the warm, dark glue of running a mix to tape, with tube drive and a MUD control to clear the low mids.",
+      points:["Half-inch two-track tape character","Tube drive","MUD: low-mid cleanup","Starts on a musical default, not a blank slate"] } },
 
   /* ---------------- $21 ---------------- */
   { slug:"tekno", group:"instruments", ref:"IDL-205", name:"Tekno", art:"ladder", status:"",
     kind:"monophonic bass", price:21, macos:"11",
-    copy:"A four-pole ladder, a sub that stays under the kick, and glide that behaves at the bottom of the keyboard. One job. It has no randomizer and does not need one." },
+    copy:"A four-pole ladder, a sub that stays under the kick, and glide that behaves at the bottom of the keyboard. One job. It has no randomizer and does not need one.",
+    description:{
+      short:"A mono bass synth built for movement.",
+      body:"A single-voice bass machine: three detuned oscillators plus sub, always-on glide and a clean ladder filter, with five punchy envelope shapes. Add auto-wah, flanger and space to taste.",
+      points:["Three oscillators plus sub, mono, with glide","BEEF filter cutoff, mod-wheel ready","Five envelope shapes: SPIT, SNAP, STAB, PUMP, SMEAR","CREATURE auto-wah, GLIDE flanger, SWIRL space, LIFT octave","Six preset tabs"] } },
 
   { slug:"bind", group:"plugins", ref:"IDL-106", name:"Bind", art:"transformer", status:"",
-    kind:"stereo bus compressor", price:21, macos:"11", copy:"" },
+    kind:"stereo bus compressor", price:21, macos:"11", copy:"",
+    description:{
+      short:"A stereo bus compressor with two personalities.",
+      body:"A warm tube vari-mu and a punchy VCA, switchable on the fly with a smooth crossfade. Set it flat and it passes audio untouched; push it and it glues a mix together.",
+      points:["Tube (BIAS) or VCA, switchable on the fly","Ratio, attack, release (with AUTO), makeup and dry/wet mix","Sidechain high-pass to keep the low end from pumping","Linked or unlinked stereo","Input and gain-reduction meters"] } },
 
   { slug:"cinch", group:"plugins", ref:"IDL-107", name:"Cinch", art:"chain", status:"",
-    kind:"drum channel strip · insert", price:21, macos:"11", copy:"" },
+    kind:"drum channel strip · insert", price:21, macos:"11", copy:"",
+    description:{
+      short:"Drumtool's channel strip, for any track.",
+      body:"The processing chain from Drumtool, for any audio: a faster alternative to reaching for EQ and a compressor. Great on drums, just as good on bass, vocals and buses.",
+      points:["Bottom-end saturator","Transient control","LOUD: one-knob loudness limiter","Works on any source"] } },
 
   /* ---------------- FREE ---------------- */
   { slug:"oldschool", group:"plugins", ref:"IDL-104", name:"Old School Series", art:"stack", status:"free",
@@ -233,6 +368,15 @@ function todo(what, draft){
 /* ============================================================
    Department page renderer
    ============================================================ */
+/* "Tag & Find and Lost & Found", from the data, so a new app joins it. */
+const appNames = () => {
+  const n = PRODUCTS.filter(p=>p.app).map(p=>p.name);
+  return n.length > 1 ? n.slice(0,-1).join(", ")+" and "+n[n.length-1] : n.join("");
+};
+
+/* Department-card blurb: the product's own `copy`, else its short line. */
+const blurb = p => p.copy || (p.description && p.description.short) || "";
+
 function renderUnits(group, hostId){
   const host = document.getElementById(hostId);
   if(!host) return;
@@ -253,8 +397,8 @@ function renderUnits(group, hostId){
     art.innerHTML =
       '<a class="unit-plate" href="'+pageUrl(p)+'">'+plate(p.art)+stamp+band+'</a>'+
       '<div class="unit-top"><h3><a href="'+pageUrl(p)+'">'+p.name+'</a></h3><span class="ref">'+p.ref+'</span></div>'+
-      '<div class="lbl kind">'+p.kind+'</div>'+
-      (p.copy ? '<p>'+p.copy+'</p>' : todo("description"))+
+      '<div class="lbl kind">'+p.kind+(p.app ? ' · <span class="spot">Mac only</span>' : '')+'</div>'+
+      (blurb(p) ? '<p>'+blurb(p)+'</p>' : todo("description"))+
       '<div class="unit-foot">'+tagPrice+btn+'</div>';
     host.appendChild(art);
   });
@@ -282,13 +426,15 @@ function footerLines(p){
     "30-day free trial. One key works on all your Macs."
   ];
   const lines = WINDOWS ? [
-    "AU and VST3 (Mac) · VST3 (Windows) · macOS 11+ · Windows 10/11 · One key works on all your computers, Mac and PC.",
-    "30-day free trial."
+    "AU and VST3 (Mac) · VST3 (Windows)",
+    "macOS "+p.macos+" or later · Windows 10 or 11 (64-bit)",
+    "30-day free trial. One key works on all your computers, Mac and PC."
   ] : [
     "AU and VST3 · macOS "+p.macos+" or later · Apple Silicon and Intel",
     "30-day free trial. One key works on all your Macs."
   ];
-  if(p.keyNote) lines.push(p.keyNote);
+  const note = WINDOWS && p.keyNoteWin ? p.keyNoteWin : p.keyNote;
+  if(note) lines.push(note);
   return lines;
 }
 
@@ -311,10 +457,12 @@ function renderProduct(hostId){
   const incl = p.includes
     ? '<dt>Includes</dt><dd>'+p.includes.join(" · ")+'</dd>' : '';
   const fmt  = p.app ? "macOS app" : (WINDOWS ? "AU · VST3 (Mac) · VST3 (Win)" : "AU · VST3");
-  const os   = p.app ? "macOS "+p.macos+"+" : (WINDOWS ? "macOS 11+ · Windows 10/11" : "macOS "+p.macos+"+");
+  const os   = p.app ? "macOS "+p.macos+"+" : (WINDOWS ? "macOS "+p.macos+"+ · Windows 10/11 64-bit" : "macOS "+p.macos+"+");
   const winNote = (WINDOWS && !p.app)
-    ? '<p class="pnote"><b>Installing on Windows.</b> Windows may show ‘Windows protected your PC.’ Click More info, then Run anyway.</p>'
+    ? '<p class="pnote"><a href="/windows.html">Installing on Windows →</a></p>'
     : '';
+  const d = p.description;
+  const descNote = d && d.note ? '<p class="pnote">'+d.note+'</p>' : '';
 
   /* Media slots. Both render nothing at all when the field is absent or
      empty — no placeholder, no gap. */
@@ -330,10 +478,17 @@ function renderProduct(hostId){
       '<div>'+
         '<div class="unit-plate prod-plate">'+plate(p.art)+'</div>'+
         video+
-        todo("product description", p.copy)+
+        (d ? '<div class="pdesc">'+
+            '<p class="plead">'+d.short+'</p>'+
+            '<p>'+d.body+'</p>'+
+            '<ul>'+d.points.map(t=>'<li>'+t+'</li>').join("")+'</ul>'+
+          '</div>'
+          : todo("product description", p.copy))+
         shots+
       '</div>'+
       '<aside class="counter">'+
+        (p.app ? '<p class="maconly"><b>Mac only.</b> Requires macOS '+p.macos+' or later.'+
+          (WINDOWS ? ' Not available for Windows.' : '')+'</p>' : '')+
         '<span class="lbl">price · one-time</span>'+
         '<div class="counter-val"><b>$'+p.price+'</b><span>'+p.ref+'</span></div>'+
         '<div class="btnrow">'+
@@ -349,7 +504,7 @@ function renderProduct(hostId){
         '</dl>'+
       '</aside>'+
     '</div>'+
-    '<div class="pfoot">'+footerLines(p).map(l=>'<p>'+l+'</p>').join("")+winNote+'</div>'+
+    '<div class="pfoot">'+footerLines(p).map(l=>'<p>'+l+'</p>').join("")+descNote+winNote+'</div>'+
     '<a class="strip" href="/all-access.html">'+
       '<span class="l"><b>All Access</b><span class="sub">'+ALL_ACCESS.head+' $'+ALL_ACCESS.price+' one-time.</span></span>'+
       '<span class="go">See what’s in it →</span>'+
@@ -367,20 +522,39 @@ function renderAllAccess(hostId, full){
   if(!host) return;
   const ps  = paid();
   const sep = ps.reduce((s,p)=>s+p.price,0);
+  const line = ALL_ACCESS.line
+    .replace("{SEPARATE}", "$"+sep)
+    .replace("{PRICE}", "$"+ALL_ACCESS.price)
+    .replace("{COUNT}", ps.length)
+    .replace("{EACH}", "$"+Math.round(ALL_ACCESS.price/ps.length));
+  const item = p =>
+    '<li><a href="'+pageUrl(p)+'">'+p.name+'</a>'+
+    (p.includes ? ' <span class="ref">'+p.includes.join(" · ")+'</span>' : '')+
+    (p.app ? ' <span class="ref">Mac only</span>' : '')+
+    '<span class="price">$'+p.price+'</span></li>';
+  /* The Windows half of this line names an unreleased platform, so it
+     only appears once WINDOWS is true. */
+  const appsNote = '<p>'+appNames()+' are macOS only'+
+    (WINDOWS ? ' and not part of the Windows release.' : '.')+'</p>';
+  const groups = [["instruments","Instruments"],["plugins","Effects"],["software","Apps"]];
   const list = full
-    ? '<ul class="aa-list">'+ps.map(p=>
-        '<li><a href="'+pageUrl(p)+'">'+p.name+'</a>'+
-        (p.includes ? ' <span class="ref">'+p.includes.join(" · ")+'</span>' : '')+
-        '<span class="price">$'+p.price+'</span></li>').join("")+
+    ? '<ul class="aa-list">'+groups.map(([g,label])=>{
+          const gs = ps.filter(p=>p.group===g);
+          return gs.length ? '<li class="aa-group"><span class="lbl">'+label+'</span></li>'+gs.map(item).join("") : '';
+        }).join("")+
       '<li class="aa-total"><span>Bought separately</span><span class="price">$'+sep+'</span></li>'+
-      '</ul>'
+      '</ul>'+
+      appsNote+
+      '<p>'+ALL_ACCESS.fine+'</p>'
     : '';
   host.innerHTML =
     '<div class="bundle aa">'+
-      '<div class="bundle-head"><span class="lbl">all access · '+ALL_ACCESS.scope+'</span><span class="ref">'+ALL_ACCESS.ref+'</span></div>'+
+      '<div class="bundle-head"><span class="lbl">all access · '+ALL_ACCESS.scope+(WINDOWS ? ' Mac and Windows.' : '')+'</span><span class="ref">'+ALL_ACCESS.ref+'</span></div>'+
       '<div class="bundle-text">'+
         '<h3>'+ALL_ACCESS.head+'</h3>'+
-        '<p>'+ALL_ACCESS.line.replace("{SEPARATE}", "$"+sep)+'</p>'+
+        '<p>'+line+'</p>'+
+        '<p>'+ALL_ACCESS.body+'</p>'+
+        (WINDOWS ? '<p>One key, every plug-in, Mac and PC (apps are Mac-only).</p>' : '')+
         list+
         '<div class="bundle-foot">'+
           '<span><span class="price aa-price">$'+ALL_ACCESS.price+'</span> <span class="lbl">one-time</span></span>'+
@@ -633,3 +807,7 @@ function mountVideo(hostId, id, label){
   CONTROLS.forEach(c=>set(c,c.v));
   focusMeter(CONTROLS[0]);
 })();
+
+/* site.js loads at the end of <body>, so every static data-win hook is
+   already in the DOM. Rendered content handles WINDOWS itself. */
+applyWindows();
