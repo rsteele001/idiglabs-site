@@ -116,6 +116,7 @@ const PRODUCTS = [
   { slug:"shatter", group:"instruments", ref:"IDL-208", name:"Shatter", art:"wave", status:"",
     kind:"spectral resynthesizer · instrument + FX insert", price:55, macos:"11",
     includes:["Shatter","Shatter FX","Shatter standalone app"], copy:"",
+    shots:["/media/shatter/shatter-1.webp"],
     description:{
       short:"You already have the sound. You just haven't heard it yet.",
       body:"Drop in any audio file, and Shatter turns it into a playable instrument across the keyboard. A door slam, a field recording, a vocal or a single note becomes a living wavetable you can play, twist and layer. Add a synth oscillator underneath to give textures a fundamental, and use TWIST to scatter coherent sound into something new. Includes Shatter FX for live processing or freeze, and a standalone app.",
@@ -142,6 +143,7 @@ const PRODUCTS = [
   /* Order within a tier: instruments first, then effects. */
   { slug:"super-stack", group:"instruments", ref:"IDL-210", name:"Super Stack", art:"stack", status:"",
     kind:"layered synth rack", price:34, macos:"11", copy:"",
+    shots:["/media/super-stack/super-stack-1.webp"],
     description:{
       short:"Four synth engines stacked for pads and motion.",
       body:"Super Stack layers four engines into one instrument, built to do two things extremely well: lush pads and sounds that move. Master macros shape the whole stack at once, per-layer controls fine-tune each engine, and a full effects chain finishes it.",
@@ -149,6 +151,7 @@ const PRODUCTS = [
 
   { slug:"polypop", group:"instruments", ref:"IDL-209", name:"PolyPop", art:"wave", status:"",
     kind:"polyphonic synthesizer", price:34, macos:"11", copy:"",
+    shots:["/media/polypop/polypop-1.webp"],
     description:{
       short:"A polyphonic lead synth with 1970s character.",
       body:"PolyPop takes the lead voice from Acid Mono and makes it polyphonic: big, bright, retro leads with a fat parallel path for weight. A character tool that does one thing with attitude.",
@@ -156,6 +159,7 @@ const PRODUCTS = [
 
   { slug:"acid-mono", group:"instruments", ref:"IDL-211", name:"Acid Mono", art:"ladder", status:"",
     kind:"monophonic synthesizer · acid + lead", price:34, macos:"11", copy:"",
+    shots:["/media/acid-mono/acid-mono-1.webp","/media/acid-mono/acid-mono-2.webp"],
     description:{
       short:"Acid bass with squelch, slide and grit.",
       body:"A monophonic acid bass synth built for basslines that bite and leads that cut.",
@@ -165,6 +169,7 @@ const PRODUCTS = [
     kind:"three instruments · one architecture", price:34, macos:"11",
     includes:["Lucy","Axel","Trixie"],
     copy:"Same voice, three temperaments. No exposed envelopes on any of them — the envelope is baked into the category you pick, so there is nothing to dial in before you hear something. Macros, a randomizer, and a save button. <b>Lucy</b> is the analog end, <b>Axel</b> the dark FM, <b>Trixie</b> the glass. Learn one and you have learned all three.",
+    shots:["/media/discovery/discovery-1.webp","/media/discovery/discovery-2.webp","/media/discovery/discovery-3.webp"],
     description:{
       short:"Three focused synths: Lucy, Axel and Trixie.",
       body:"Three characterful synths in one package. Simple, fast and easy to get great results from, with one key that unlocks all three.",
@@ -173,6 +178,7 @@ const PRODUCTS = [
   { slug:"kaleidoscope", group:"instruments", ref:"IDL-202", name:"Kaleidoscope", art:"stack", status:"",
     kind:"wavetable synthesizer", price:34, macos:"11",
     copy:"43 wavetables in ten categories, or load your own. <b>MOVE</b> gives eleven controls their own motion, <b>PUMP</b> retriggers in time with your track, and <b>VIBE TWIST</b> rolls new ideas with undo and A/B. Built on the Pulsar-6 voice, so the filter and the effects are the ones you already know.",
+    shots:["/media/kaleidoscope/kaleidoscope-1.webp"],
     description:{
       short:"A wavetable synth that never sits still.",
       body:"Kaleidoscope scans through 43 wavetables, or your own, while MOVE gives eleven controls their own motion. Pads shift and evolve through chorus, ping-pong delay, swirl and a deep space chain. VIBE TWIST rolls new ideas with undo and A/B.",
@@ -189,6 +195,7 @@ const PRODUCTS = [
   { slug:"raven", group:"instruments", ref:"IDL-203", name:"Raven", art:"ladder", status:"",
     kind:"leads and basses · mono or 8-voice poly", price:34, macos:"11",
     copy:"Four corners — Reese, screech, growl, mangle — and an XY puck to sit anywhere between them. Hard resonance, four-times oversampled, a wobble LFO phase-locked to the host, and a sixteen-step gate you draw yourself.",
+    shots:["/media/raven/raven-1.webp"],
     description:{
       short:"Leads and basses that bite.",
       body:"Raven stacks seven detuned oscillators per voice and morphs between four characters (REESE, SCREECH, GROWL and MANGLE) on an X/Y pad. Tempo-locked wobble and a drawable 16-step gate make it move with your track.",
@@ -196,6 +203,7 @@ const PRODUCTS = [
 
   { slug:"drumtool", group:"instruments", ref:"IDL-212", name:"Drumtool", art:"stack", status:"",
     kind:"drum instrument", price:34, macos:"11", copy:"",
+    shots:["/media/drumtool/drumtool-1.webp","/media/drumtool/drumtool-2.webp"],
     description:{
       short:"Audition drums already mix-ready.",
       body:"Four channels (kick, snare and two toms), each with a full processing chain that stays put while you step through sources. You hear every kick already shaped and sitting in the mix, not raw.",
@@ -204,6 +212,7 @@ const PRODUCTS = [
   { slug:"dream-state", group:"plugins", ref:"IDL-105", name:"Dream State", art:"chain", status:"",
     kind:"modulation + reverb · two plug-ins", price:34, macos:"11",
     includes:["Dream State Motion","Dream State Void"], keyNote:"One key unlocks both.", keyNoteWin:"One key unlocks both, on Mac and PC.", copy:"",
+    shots:["/media/dream-state/dream-state-1.webp","/media/dream-state/dream-state-2.webp"],
     description:{
       short:"A delay and a reverb built for space.",
       body:"Motion is a delay and modulation effect with rotary-speaker movement. Void is an outer-space reverb with four modes (VOID, ORBIT, NEBULA and EVENT HORIZON), tails up to 7 seconds, and tape delay ahead of the reverb.",
@@ -211,6 +220,7 @@ const PRODUCTS = [
 
   { slug:"haul", group:"plugins", ref:"IDL-108", name:"Haul", art:"transformer", status:"",
     kind:"tape", price:34, macos:"11", copy:"",
+    shots:["/media/haul/haul-1.webp"],
     description:{
       short:"The dark, warm cloud of half-inch tape.",
       body:"A half-inch two-track tape machine: the warm, dark glue of running a mix to tape, with tube drive and a MUD control to clear the low mids.",
@@ -220,6 +230,7 @@ const PRODUCTS = [
   { slug:"tekno", group:"instruments", ref:"IDL-205", name:"Tekno", art:"ladder", status:"",
     kind:"monophonic bass", price:21, macos:"11",
     copy:"A four-pole ladder, a sub that stays under the kick, and glide that behaves at the bottom of the keyboard. One job. It has no randomizer and does not need one.",
+    shots:["/media/tekno/tekno-1.webp"],
     description:{
       short:"A mono bass synth built for movement.",
       body:"A single-voice bass machine: three detuned oscillators plus sub, always-on glide and a clean ladder filter, with five punchy envelope shapes. Add auto-wah, flanger and space to taste.",
@@ -227,6 +238,7 @@ const PRODUCTS = [
 
   { slug:"bind", group:"plugins", ref:"IDL-106", name:"Bind", art:"transformer", status:"",
     kind:"stereo bus compressor", price:21, macos:"11", copy:"",
+    shots:["/media/bind/bind-1.webp"],
     description:{
       short:"A stereo bus compressor with two personalities.",
       body:"A warm tube vari-mu and a punchy VCA, switchable on the fly with a smooth crossfade. Set it flat and it passes audio untouched; push it and it glues a mix together.",
@@ -234,6 +246,7 @@ const PRODUCTS = [
 
   { slug:"cinch", group:"plugins", ref:"IDL-107", name:"Cinch", art:"chain", status:"",
     kind:"drum channel strip · insert", price:21, macos:"11", copy:"",
+    shots:["/media/cinch/cinch-1.webp"],
     description:{
       short:"Drumtool's channel strip, for any track.",
       body:"The processing chain from Drumtool, for any audio: a faster alternative to reaching for EQ and a compressor. Great on drums, just as good on bass, vocals and buses.",
