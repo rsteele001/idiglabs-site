@@ -46,7 +46,7 @@
    pages carry only empty hooks. It is still readable by anyone who
    opens site.js.
    ============================================================ */
-const WINDOWS = false;
+const WINDOWS = true;
 
 /* Text for every data-win hook. applyWindows() swaps each hooked
    element's content for its entry here, and un-hides empty hooks. */
