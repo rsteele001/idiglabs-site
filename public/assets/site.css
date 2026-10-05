@@ -252,9 +252,14 @@ a.unit-plate{display:block}
 .maconly{margin:0 0 12px;padding:8px 10px;border:1px solid var(--spot);font-size:13px;line-height:1.4;color:var(--ink)}
 .maconly b{font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:11px;color:var(--spot)}
 .pvideo{margin-bottom:14px}
-.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:2px;align-items:start}
-.shot{display:block;border:1px solid var(--ink);background:var(--panel);padding:6px}
-.shot img{display:block;width:100%;height:auto;border:1px solid var(--hair);background:#fff}
+/* Shots span the full content width below .prod. Two to a row, each half
+   the width; a lone shot (or an odd last one) takes the whole row. Images
+   never grow past their own pixel width, so a small capture stays sharp
+   and its frame shrinks to fit, centred. */
+.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:26px;align-items:start}
+.shot{display:block;border:1px solid var(--ink);background:var(--panel);padding:6px;max-width:100%}
+.shot:last-child:nth-child(odd){grid-column:1/-1;justify-self:center}
+.shot img{display:block;width:auto;max-width:100%;height:auto;margin:0 auto;border:1px solid var(--hair);background:#fff}
 .shot:hover{background:var(--spot-tint)}
 .shot:focus-visible{outline:2px solid var(--spot);outline-offset:2px}
 /* Description: the short line leads, then the paragraph, then the bullets. */

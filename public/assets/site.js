@@ -125,6 +125,7 @@ const PRODUCTS = [
   { slug:"tag-and-find", group:"software", ref:"IDL-302", name:"Tag &amp; Find", art:"tag", status:"",
     kind:"macOS app · audio file browser", price:55, app:true, macos:"13",
     copy:"Your tags, not somebody's metadata scheme. Waveform preview, drag straight into the session, and folders that reconcile themselves when you move a drive. Seventy thousand files and it still opens instantly.",
+    shots:["/media/tag-and-find/tag-and-find-1.webp"],
     description:{
       short:"Find the right sound effect fast, and drag it straight into your DAW.",
       body:"Drag your sound effects folders into Tag &amp; Find, or choose them from your drives, and it builds a searchable library you can browse by category, tag, mark favorites in and group into projects. Preview instantly, then drag the sound straight into your session.",
@@ -133,6 +134,7 @@ const PRODUCTS = [
   { slug:"lost-and-found", group:"software", ref:"IDL-301", name:"Lost &amp; Found", art:"folder", status:"",
     kind:"macOS app · Kontakt library browser", price:55, app:true, macos:"13.5",
     copy:"Finds every Kontakt library on every drive, including the ones the installer lost, and sorts them by the vendor who actually made them. Drag in anything the scan missed and it stays put. No account, no catalog, no storefront.",
+    shots:["/media/lost-and-found/lost-and-found-1.webp"],
     description:{
       short:"Find every Kontakt library on every drive, even the ones Kontakt forgot.",
       body:"Lost &amp; Found scans your drives, finds every Kontakt library, and organizes them by vendor so you can see everything you own in one place.",
@@ -478,7 +480,8 @@ function renderProduct(hostId){
   const descNote = d && d.note ? '<p class="pnote">'+d.note+'</p>' : '';
 
   /* Media slots. Both render nothing at all when the field is absent or
-     empty — no placeholder, no gap. */
+     empty — no placeholder, no gap. The shots sit below the description
+     and counter, across the full content width (see .shots in site.css). */
   const video = p.video ? '<div class="vwrap pvideo" id="pvideo"></div>' : '';
   const shots = (p.shots && p.shots.length)
     ? '<div class="shots">'+p.shots.map((src,i)=>
@@ -497,7 +500,6 @@ function renderProduct(hostId){
             '<ul>'+d.points.map(t=>'<li>'+t+'</li>').join("")+'</ul>'+
           '</div>'
           : todo("product description", p.copy))+
-        shots+
       '</div>'+
       '<aside class="counter">'+
         (p.app ? '<p class="maconly"><b>Mac only.</b> Requires macOS '+p.macos+' or later.'+
@@ -517,6 +519,7 @@ function renderProduct(hostId){
         '</dl>'+
       '</aside>'+
     '</div>'+
+    shots+
     '<div class="pfoot">'+footerLines(p).map(l=>'<p>'+l+'</p>').join("")+descNote+winNote+'</div>'+
     '<a class="strip" href="/all-access.html">'+
       '<span class="l"><b>All Access</b><span class="sub">'+ALL_ACCESS.head+' $'+ALL_ACCESS.price+' one-time.</span></span>'+
