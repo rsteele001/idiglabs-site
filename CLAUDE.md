@@ -5,9 +5,9 @@ Context for Claude Code working in this repo.
 ## What this is
 
 The iDigLabs storefront. Static HTML, no build step, no framework, no
-dependencies. Deployed to Netlify with the CLI (`netlify deploy --prod`);
-the Netlify project is not connected to GitHub, so pushing does not
-deploy. There is nothing to compile.
+dependencies. Deployed by Netlify from GitHub: every push to `main`
+deploys to idiglabs.com (see "Deploying right now"). There is nothing
+to compile.
 
 ## Architecture
 

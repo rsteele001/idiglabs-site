@@ -303,6 +303,9 @@ a.unit-plate{display:block}
 .buy:focus-visible{outline:2px solid var(--spot);outline-offset:2px}
 .buy.ghost{background:transparent;color:var(--ink)}
 .buy.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+/* "Try them all free": the page's main call to action, filled in the spot colour. */
+.buy.try{background:var(--spot);border-color:var(--spot);color:#fff;font-size:15px;font-weight:600;letter-spacing:.2em;padding:20px 40px}
+.buy.try:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .buy[aria-disabled="true"]{background:transparent;color:var(--ink-soft);border-color:var(--rule);cursor:default}
 .buy[aria-disabled="true"]:hover{background:transparent;color:var(--ink-soft);border-color:var(--rule)}
 
