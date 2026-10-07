@@ -228,6 +228,14 @@ const PRODUCTS = [
       body:"A half-inch two-track tape machine: the warm, dark glue of running a mix to tape, with tube drive and a MUD control to clear the low mids.",
       points:["Half-inch two-track tape character","Tube drive","MUD: low-mid cleanup","Starts on a musical default, not a blank slate"] } },
 
+  { slug:"vortex", group:"plugins", ref:"IDL-109", name:"Vortex", art:"chain", status:"",
+    kind:"evolving multi-effects", price:34, macos:"11", copy:"",
+    shots:["/media/vortex/vortex-1.webp"],
+    description:{
+      short:"Sound in rhythm.",
+      body:"An evolving multi-effects unit driven by MOVE: filter, drive delay, swirl and space, with width, pump and a stereo tremolo. MOVE sets how much everything drifts, from still to wild. PUMP locks rhythmic movement to your DAW across eight patterns. VIBE TWIST rolls a new patch; VIBE LOCK holds the parts you want to keep.",
+      points:["MOVE: one knob from still to wild","Filter, drive delay, swirl and space","PUMP: eight patterns, tempo-locked, half time / dot / triplet","Stereo tremolo with rate, depth, shape and phase","VIBE TWIST with per-section locks","CATCH and LOW DRY controls"] } },
+
   /* ---------------- $21 ---------------- */
   { slug:"tekno", group:"instruments", ref:"IDL-205", name:"Tekno", art:"ladder", status:"",
     kind:"monophonic bass", price:21, macos:"11",

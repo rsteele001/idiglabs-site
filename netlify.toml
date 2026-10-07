@@ -125,6 +125,12 @@
   status = 302
   force = true
 
+[[redirects]]
+  from = "/buy/vortex"
+  to = "https://payhip.com/b/AFhxl"
+  status = 302
+  force = true
+
 # LUCY, AXEL and TRIXIE share the Discovery Series page.
 [[redirects]]
   from = "/buy/discovery"
