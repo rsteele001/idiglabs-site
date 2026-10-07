@@ -106,7 +106,7 @@ const ALL_ACCESS = {
   // {PRICE} / {COUNT} rounded to the dollar.
   line:"{SEPARATE} of tools for {PRICE}. {COUNT} plugins and apps, about {EACH} each.",
   body:"Every plugin and both apps with one key, on every Mac you own. Real price, every day, no countdown.",
-  fine:"Future products are separate purchases. No subscription, ever.",
+  fine:"No subscription, ever.",
   scope:"All plug-ins and both apps. One-time."
 };
 
