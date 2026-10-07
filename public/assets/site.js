@@ -46,7 +46,7 @@
    pages carry only empty hooks. It is still readable by anyone who
    opens site.js.
    ============================================================ */
-const WINDOWS = true;
+const WINDOWS = false;   // hidden again (Ron, 7 Oct 2026): the installers aren't tested
 
 /* Text for every data-win hook. applyWindows() swaps each hooked
    element's content for its entry here, and un-hides empty hooks. */
@@ -233,8 +233,8 @@ const PRODUCTS = [
     shots:["/media/vortex/vortex-1.webp"],
     description:{
       short:"Sound in rhythm.",
-      body:"An evolving multi-effects unit driven by MOVE: filter, drive delay, swirl and space, with width, pump and a stereo tremolo. MOVE sets how much everything drifts, from still to wild. PUMP locks rhythmic movement to your DAW across eight patterns. VIBE TWIST rolls a new patch; VIBE LOCK holds the parts you want to keep.",
-      points:["MOVE: one knob from still to wild","Filter, drive delay, swirl and space","PUMP: eight patterns, tempo-locked, half time / dot / triplet","Stereo tremolo with rate, depth, shape and phase","VIBE TWIST with per-section locks","CATCH and LOW DRY controls"] } },
+      body:"A rhythmic psychedelic multi-FX in a 1960s amp-style face. MOVE drifts every block so the sound keeps moving on its own; CATCH freezes the moment you love. Drive delay, swirl, space, a MicroPitch-style widener, tempo-locked pump and stereo tremolo, VIBE TWIST with per-block locks, LOW DRY to keep the low end clean. 25 factory presets.",
+      points:["MOVE drifts every block, from still to wild","CATCH freezes the moment you love","Drive delay, swirl and space","A MicroPitch-style widener","Tempo-locked pump and stereo tremolo","VIBE TWIST with per-block locks","LOW DRY keeps the low end clean","25 factory presets"] } },
 
   /* ---------------- $21 ---------------- */
   { slug:"tekno", group:"instruments", ref:"IDL-205", name:"Tekno", art:"ladder", status:"",
