@@ -160,10 +160,16 @@
   force = true
 
 # FREE TRIALS. "Try them all free" on the homepage and "Try" on every
-# product page link here.
+# product page link here. /trial is the singular alias.
 [[redirects]]
   from = "/trials"
-  to = "https://payhip.com/b/2Pxoi"
+  to = "https://payhip.com/b/A8KQT"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/trial"
+  to = "https://payhip.com/b/A8KQT"
   status = 302
   force = true
 
