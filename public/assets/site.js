@@ -46,11 +46,16 @@
    pages carry only empty hooks. It is still readable by anyone who
    opens site.js.
    ============================================================ */
-const WINDOWS = false;   // hidden again (Ron, 7 Oct 2026): the installers aren't tested
+const WINDOWS = true;    // on (Ron, 9 Oct 2026)
+
+/* The SmartScreen note. Shown on /windows.html and beside every button
+   that downloads a Windows installer. */
+const SMARTSCREEN = "Windows may show a blue ‘Windows protected your PC’ screen. That’s SmartScreen, which appears for software from small developers. Click ‘More info’, then ‘Run anyway’.";
 
 /* Text for every data-win hook. applyWindows() swaps each hooked
    element's content for its entry here, and un-hides empty hooks. */
 const WIN_COPY = {
+  smartscreen: SMARTSCREEN,
   banner:      "Now on Mac and Windows.",
   trialsFine:  "Every product has a 30-day full trial: plug-ins on Mac and Windows, apps on Mac. After that it keeps working, with a reminder.",
   osLabel:     "OS",
@@ -71,7 +76,7 @@ const WIN_COPY = {
 
 const WIN_INSTALL = [
   "Run the installer. Plug-ins install to <span class=\"addr\">C:\\Program Files\\Common Files\\VST3\\</span>.",
-  "Windows may show \u201cWindows protected your PC.\u201d Click <b>More info</b>, then <b>Run anyway</b>.",
+  SMARTSCREEN,
   "Rescan plug-ins in your DAW if they don't appear.",
   "Enter the same key you use on your Mac."
 ];
@@ -518,6 +523,7 @@ function renderProduct(hostId){
           '<a class="buy big" href="'+buyUrl(p)+'" data-ls>Buy — $'+p.price+'</a>'+
           '<a class="buy big ghost" href="'+TRIALS_URL+'">Try</a>'+
         '</div>'+
+        (WINDOWS && !p.app ? '<p class="winsafe">'+SMARTSCREEN+'</p>' : '')+
         '<dl>'+incl+
           '<dt>Format</dt><dd>'+fmt+'</dd>'+
           '<dt>OS</dt><dd>'+os+'</dd>'+
@@ -587,6 +593,7 @@ function renderAllAccess(hostId, full){
             '<a class="buy" href="'+ALL_ACCESS.url+'" data-ls>Get All Access — $'+ALL_ACCESS.price+'</a>'+
           '</span>'+
         '</div>'+
+        (WINDOWS ? '<p class="winsafe">'+SMARTSCREEN+'</p>' : '')+
       '</div>'+
     '</div>';
 }
