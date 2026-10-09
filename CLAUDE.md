@@ -149,8 +149,6 @@ At launch: flip the flag, add `/windows.html` to `sitemap.xml`, bump
 - The ten `OLDSCHOOL[].kind` one-liners are placeholders and need rewriting.
 - Every product page shows a TODO description block; most department
   plates do too. Search `site.js` and the dept pages for "TODO".
-- `/buy/all-access` and `/trials` are commented-out pending redirects in
-  `netlify.toml`. Until filled, those links 404.
 - Product names and pages must carry no hardware brand names (SSL,
   Neve, Moog, 1176, etc.).
 
@@ -191,6 +189,11 @@ capacities. Do not reintroduce "Merchant of Record" anywhere.
   `wireCheckout()` adds both automatically to any `a[data-ls]` pointing at a
   `payhip.com/b/<code>` URL, so product data only needs the plain URL.
 - Old School free product: `https://payhip.com/b/lziae` (code `lziae`).
+- Free trials: `/trials` and `/trial` are live 302 redirects in
+  `netlify.toml` to `https://payhip.com/b/A8KQT`, the free-trial listing.
+  Every trial link on the site ("Try them all free", the product pages'
+  "Try" via `TRIALS_URL` in `site.js`) goes through `/trials`, so changing
+  the listing is a one-line `netlify.toml` edit.
 - All three legal pages describe Payhip's tax role in those terms. If the
   provider changes again, or its role does, those pages must change the same
   day.
