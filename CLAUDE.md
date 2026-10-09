@@ -158,6 +158,10 @@ At launch: flip the flag, add `/windows.html` to `sitemap.xml`, bump
 deploys to idiglabs.com.** Pushing IS deploying. Commit locally as asked, but
 never push `main` unless Ron has said to deploy.
 
+**A commit that touches neither `public/` nor `netlify.toml` must have
+`[skip netlify]` in its commit message**, so Netlify doesn't rebuild for a
+change that cannot reach the site (CLAUDE.md, DEPLOY.md, _staged/).
+
 
 ## Licensing model — CURRENT STATE
 
